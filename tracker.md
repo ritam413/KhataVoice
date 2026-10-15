@@ -1786,6 +1786,38 @@ Voice recording and 1-Click presets capture and process transactions cleanly wit
 1. Advise users on browser compatibility: Native Web Speech requires Google Chrome or Microsoft Edge (or 1-Click presets in Brave/Firefox).
 2. Users can supply `GEMINI_API_KEY` in `.env.local` if they want frontier cloud LLM parsing.
 
+---
+
+## 2026-10-16 — Hackathon Showcase Image Generation (Retina 2x DPR)
+
+### Objective
+Capture 6 (plus 1 bonus) high-resolution, pixel-perfect showcase images of KhataVoice across all primary screens and interaction states for the Next Founders Hackathon Devpost submission and pitch deck.
+
+### Changes Made
+- **Automated Capture Engine (`scripts/capture_showcase.py`):**
+  - Built headless Playwright automation targeting `http://localhost:3000` with 1440x900 viewport and `device_scale_factor=2` (2880x1800 Retina 4K sharpness).
+  - Captured 7 core screens:
+    1. `01_kirana_mobile_home.png`: Mobile handset simulator overview (₹3,010 stuck credit, Silver store rating, 72px Saffron mic).
+    2. `02_voice_entry_ai_parsing.png`: Voice Entry modal with real-time audio waveform and 1-Click vernacular presets.
+    3. `03_retail_soundbox_confirmed.png`: Indian retail soundbox transaction confirmation card (`Shyam Sundar Das`, Gold Trust 86, ₹220, item breakdown, 4s auto-commit countdown).
+    4. `04_cultural_whatsapp_recovery.png`: Cultural WhatsApp Debt Recovery modal with 3 tone selectors, Bengali script, and embedded NPCI UPI link.
+    5. `05_desktop_command_center.png`: Widescreen Desktop Merchant Command Center with live Supabase Realtime transaction audit stream, 4 KPIs, and debtor ledger.
+    6. `06_judge_economics_simulator.png`: Hackathon Judge Economics & Working Capital ROI Simulator for judge Ekansh Jain (LUMA Youth) with 10.8x payback ROI.
+    7. `07_architecture_inspector.png`: Architecture & Scalability Inspector with 5-step DAG sequence and multi-tenant cloud schema.
+- **Artifact Authoring:**
+  - Authored `hackathon_showcase_images.md` embedded with absolute path images for instant visual inspection.
+- **Saved Directories:**
+  - `public/showcase/` (static web hosting)
+  - `Docs/showcase/` (repository docs)
+  - Brain artifacts directory (Antigravity visual display)
+
+### Verification
+- All 7 PNG images verified via `view_file` tool; 100% rendered with zero layout artifacts.
+
+### Current State
+Complete set of 7 high-resolution presentation screenshots ready for Devpost and presentation deck.
+
+
 
 
 

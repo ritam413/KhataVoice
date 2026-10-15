@@ -1,55 +1,57 @@
-# KhataVoice: 2-Minute Demo Presentation Script
+# KhataVoice: 2-Minute Demo Presentation Script (Humanized)
 
-> **Pacing:** ~135 words per minute (~270 spoken words total).  
-> **Tone:** Conversational, relaxed, confident, and grounded in everyday Indian retail reality.  
-> **Style Guardrail:** Humanized prose with zero robotic clichés, zero corporate buzzwords, and zero em dashes.
+> **Spoken Word Count:** ~265 words (fits comfortably within 120 seconds at ~130–140 words per minute).  
+> **Delivery:** Conversational, relaxed, and clear, like walking a friend through something you built.  
+> **Rules Applied:** Humanizer rules (zero em/en dashes, zero AI stock words, zero robotic tripartite slogans).
 
 ---
 
-### [0:00 – 0:20] The Hook and the Problem
+### [0:00 to 0:20] The Hook and the Problem
 
 **Screen:** Screen 1 (Kirana Mobile Home View)  
-**Visual Action:** Show the authentic smartphone frame centered on screen. Point your cursor to the large saffron microphone button and the outstanding debt card (₹3,010).
+**Visual Action:** Show the authentic smartphone frame centered on screen. Move your cursor over the large saffron microphone button and point to the outstanding debt card (₹3,010).
 
-**Spoken Dialogue:**  
-"Meet Ramesh babu. He runs a neighborhood grocery shop in Kolkata. Over half his daily sales happen on informal credit, recorded with a stubby pencil in a grease-stained notebook. When his shop is packed with customers shouting orders, he cannot type names and numbers on a cracked phone with dusty thumbs. So debts get forgotten, and working capital stays trapped. We built KhataVoice so Ramesh babu never has to type a single letter again."
+**What to Say:**  
+"This is Ramesh babu. He runs a little corner grocery shop in Kolkata. Most of his customers buy on credit, and he tracks every rupee by scribbling in a grease-stained red notebook. During the evening rush, with five people shouting orders at once, there is no way he can wipe turmeric off his hands and type on a phone. The notebook wins every time, debts get forgotten, and his cash stays trapped on paper. We built KhataVoice so he never has to type a single thing."
 
 ---
 
-### [0:20 – 0:50] Spoken Dual-Sync in Action
+### [0:20 to 0:50] Spoken Dual-Sync in Action
 
 **Screen:** Screen 2 (Voice Entry Modal)  
-**Visual Action:** Tap the pulsing 80px Saffron Microphone button. Select the Bengali preset sample: *"Shyam Sundar Das ke duto Miniket chal ar ekta mustard oil baki dao."* Watch the live saffron waveform bounce, see the parsed transaction entity pills appear, let the 4-second auto-commit countdown complete, and let the retail Soundbox chime ring out loud.
+**Visual Action:** Tap the pulsing 80px Saffron Microphone button. Pick the Bengali audio preset: *"Shyam Sundar Das ke duto Miniket chal ar ekta mustard oil baki dao."* Watch the saffron waveform animate, show the parsed transaction pills, let the 4-second countdown auto-commit, and let the retail Soundbox chime ring out loud.
 
-**Spoken Dialogue:**  
-"Watch what happens when he records a transaction. He taps one button and speaks naturally in Bengali, Hindi, or English. In under a second, our engine parses the customer, the items, and the amount. Notice what happened just now: with zero typing, Shyam babu's credit balance jumped by ₹250, while two kilos of Miniket rice and a bottle of mustard oil were automatically subtracted from store shelves. And that harmonic bell you just heard is our retail Soundbox chime, confirming the sale out loud so the shopkeeper never even has to stare at the screen."
-
----
-
-### [0:50 – 1:15] Trust Scoring and WhatsApp Debt Recovery
-
-**Screen:** Screen 3 (Udhaar Credit Ledger) $\to$ Screen 5 (WhatsApp Recovery Modal)  
-**Visual Action:** Tap the "Ledger" icon in the bottom navigation dock. Point to the Gold, Silver, and Bronze trust badges. Tap the green WhatsApp button next to an overdue account. In the modal, toggle between "Polite Gentle" and "Firm Overdue", showing the live preview bubble with the embedded UPI link.
-
-**Spoken Dialogue:**  
-"Now, here is where paper ledgers completely fail: collecting the money. Chasing your own neighbor for ₹150 feels awkward. KhataVoice solves this with an algorithmic Credit Trust Score from 0 to 100 based on how fast people actually repay. When someone is overdue, the merchant taps one button to generate a culturally polite WhatsApp reminder. You can switch between gentle, friendly, and firm tones. The customer gets a direct UPI payment link, so they can clear their balance in two taps right from their morning chat."
+**What to Say:**  
+"To record a sale, he just taps the mic and talks normally in Bengali, Hindi, or English. Listen to this.  
+*(Tap the Bengali audio preset button)*  
+That was less than a second. Without touching a keyboard, Shyam babu's credit balance went up by ₹250, and our store stock dropped by two kilos of rice and one bottle of mustard oil. That bell you just heard is our retail Soundbox chime. It reads the confirmation out loud so Ramesh babu can hand over the grocery bag without even glancing down at his screen."
 
 ---
 
-### [1:15 – 1:40] Desktop Command Center and Realtime Sync
+### [0:50 to 1:15] Trust Scoring and WhatsApp Debt Recovery
 
-**Screen:** TopBar Toggle $\to$ Screen 6 (Desktop Merchant Command Center)  
-**Visual Action:** Click the "Desktop Command" toggle in the top bar. The interface expands instantly into the multi-pane widescreen hub. Point to the live event feed on the right, showing the newly created transaction sitting at the top with a subtle saffron highlight.
+**Screen:** Screen 3 (Udhaar Credit Ledger) to Screen 5 (WhatsApp Recovery Modal)  
+**Visual Action:** Tap "Ledger" in the bottom dock. Point out the Gold, Silver, and Bronze trust badges. Tap the green WhatsApp button next to an overdue account. In the modal, toggle between "Polite Gentle" and "Firm Overdue", showing the live preview chat bubble with the embedded UPI link.
 
-**Spoken Dialogue:**  
-"When the shopkeeper closes his shutters at night, or when his distributor comes by, he switches to the Desktop Command Center. Everything syncs live over Supabase Realtime. He can see his total outstanding udhaar, monthly recovery rate, inventory alerts, and a real-time audit feed of every voice transaction recorded across the day."
+**What to Say:**  
+"The hardest part of running a shop is not tracking debt, it is asking for it back. Walking across the lane to ask your neighbor for ₹150 feels terrible. KhataVoice scores customer trust from zero to a hundred based on how reliably people pay back. When a bill sits too long, Ramesh babu taps the WhatsApp icon. The app drafts a polite reminder in Bengali, Hindi, or English, with a direct UPI payment link right in the message. The customer taps it, pays via UPI, and nobody has to have an awkward conversation on the street."
 
 ---
 
-### [1:40 – 2:00] Unit Economics and Wrap-up
+### [1:15 to 1:40] Desktop Command Center and Realtime Sync
+
+**Screen:** TopBar Toggle to Screen 6 (Desktop Merchant Command Center)  
+**Visual Action:** Click the "Desktop Command" toggle pill in the top bar. The view expands into the widescreen hub. Point out the live event feed on the right, showing the newly created transaction sitting at the top with a subtle saffron pulse.
+
+**What to Say:**  
+"At the end of the day, when the shutters come down or a supplier drops by with stock, the shopkeeper flips into Desktop mode. Everything syncs live in the background. He gets a clean view of his total money out on credit, which shelves need restocking, and an audit feed showing every voice entry from the day as it happened."
+
+---
+
+### [1:40 to 2:00] Unit Economics and Wrap-up
 
 **Screen:** Screen 7 (Judge Economics and ROI Suite)  
 **Visual Action:** Click "Judge Suite" in the top bar. Move the "Active Kirana Stores" slider to 1,000 stores. Highlight the 10.8x payback metric box.
 
-**Spoken Dialogue:**  
-"Best of all, the unit economics actually work in the real world. At ten paise per voice entry, a ₹199 monthly subscription delivers over 75% gross margins for us, while putting more than ₹2,000 back into the shopkeeper's pocket every month. That is a ten-times return on investment on day one. KhataVoice gives India's neighborhood merchants the speed of voice, the discipline of a bank, and the warmth of a neighbor."
+**What to Say:**  
+"From a business perspective, the numbers make immediate sense. Voice processing costs about ten paise an entry. At a subscription of ₹199 a month, we maintain seventy-five percent gross margins, while the shopkeeper recovers over ₹2,000 in forgotten credit every month. That is a ten-times return on investment on day one. KhataVoice takes the pain out of daily bookkeeping so neighborhood shops can actually keep their money."

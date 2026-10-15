@@ -1726,7 +1726,7 @@ Install the `/brand` skill if not present and utilize it to author a complete, a
 - Updated [context.md](file:///c:/CCodes_WebDevelopment/hckthon/Next%20Founders/context.md) with `BRAND.md` reference.
 - Updated [features_implemented.md](file:///c:/CCodes_WebDevelopment/hckthon/Next%20Founders/features_implemented.md) with Feature 17.
 - Authored [Docs/devpost_submission.md](file:///c:/CCodes_WebDevelopment/hckthon/Next%20Founders/Docs/devpost_submission.md) containing the complete humanized Devpost submission copy.
-- Authored [Docs/two_minute_demo_script.md](file:///c:/CCodes_WebDevelopment/hckthon/Next%20Founders/Docs/two_minute_demo_script.md) providing a strict 120-second conversational presentation script with screen-by-screen actions.
+- Authored [Docs/two_minute_demo_script.md](file:///c:/CCodes_WebDevelopment/hckthon/Next%20Founders/Docs/two_minute_demo_script.md) providing a strict 120-second conversational presentation script with screen-by-screen actions, fully humanized (zero em/en dashes, zero robotic tricolons or filler phrases).
 - Initialized Git repository, added `.gitignore`, committed full codebase, configured remote origin `https://github.com/ritam413/KhataVoice.git`, and pushed branch `main`.
 
 ### Files Changed

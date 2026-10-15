@@ -1,0 +1,49 @@
+.container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: var(--radius-lg, 12px);
+  background: rgba(11, 15, 25, 0.4);
+  border: 1px solid rgba(255, 119, 0, 0.12);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.container.recording {
+  border-color: rgba(255, 119, 0, 0.35);
+  box-shadow: 0 0 24px -6px rgba(255, 119, 0, 0.25);
+}
+
+.ambientGlow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+  height: 60%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 119, 0, 0.18) 0%,
+    rgba(255, 184, 0, 0.08) 40%,
+    transparent 75%
+  );
+  filter: blur(14px);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 1;
+}
+
+.ambientGlow.active {
+  opacity: 1;
+}
+
+.canvas {
+  position: relative;
+  display: block;
+  z-index: 2;
+  touch-action: none;
+  user-select: none;
+}

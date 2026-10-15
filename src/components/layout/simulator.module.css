@@ -1,0 +1,377 @@
+/* ==========================================================================
+   KhataVoice Dual-Mode Viewport Simulator (Bharat Modern Aesthetic)
+   Pure CSS hardware chassis + CSS Container Queries
+   ========================================================================== */
+
+.simulatorWrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+  background-color: var(--color-background, #09090b);
+  color: var(--color-foreground, #fafafa);
+  overflow-x: hidden;
+}
+
+/* ==========================================================================
+   Top Navigation Bar
+   ========================================================================== */
+
+.topBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.25rem;
+  background-color: rgba(18, 18, 20, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  gap: 1rem;
+}
+
+.brandGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.brandLogo {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #FF7700 0%, #FF9933 100%);
+  color: #000;
+  font-weight: 900;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(255, 119, 0, 0.35);
+  flex-shrink: 0;
+}
+
+.brandText {
+  display: flex;
+  flex-direction: column;
+}
+
+.brandTitle {
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #fff;
+  line-height: 1.2;
+}
+
+.brandTagline {
+  font-size: 0.7rem;
+  color: #a1a1aa;
+  font-weight: 500;
+}
+
+/* Mode Switcher Pill */
+.modeSwitcher {
+  display: flex;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 3px;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modeButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.875rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 9999px;
+  border: none;
+  background: transparent;
+  color: #a1a1aa;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+
+.modeButton:hover {
+  color: #fff;
+}
+
+.modeButtonActive {
+  background-color: #27272a;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.actionsGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.langSelect {
+  background-color: rgba(255, 255, 255, 0.06);
+  color: #fafafa;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  padding: 0.375rem 0.625rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.langSelect:focus {
+  border-color: #FF7700;
+}
+
+.judgeButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: 8px;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  background: rgba(16, 185, 129, 0.12);
+  color: #34d399;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.judgeButton:hover {
+  background: rgba(16, 185, 129, 0.22);
+  border-color: #10B981;
+}
+
+.judgeButtonActive {
+  background: rgba(16, 185, 129, 0.3) !important;
+  border-color: #10B981 !important;
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.4) !important;
+  color: #FFFFFF !important;
+}
+
+/* ==========================================================================
+   Viewport Stage Area
+   ========================================================================== */
+
+.viewportStage {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 1.5rem 1rem;
+  min-height: calc(100vh - 65px);
+}
+
+/* ==========================================================================
+   Mobile Smartphone Chassis (390px x 844px)
+   ========================================================================== */
+
+.phoneWrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.phoneChassis {
+  --phone-width: min(390px, 94vw);
+  --phone-height: min(844px, 86vh);
+
+  position: relative;
+  width: var(--phone-width);
+  height: var(--phone-height);
+  background: #18181b;
+  border-radius: 46px;
+  padding: 10px;
+  box-shadow: 
+    0 0 0 2px #27272a,
+    0 0 0 4px #09090b,
+    0 30px 70px -15px rgba(0, 0, 0, 0.8),
+    inset 0 0 0 2px rgba(255, 255, 255, 0.08);
+  container-type: inline-size;
+  container-name: phone;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Physical Hardware Side Buttons */
+.sideButton {
+  position: absolute;
+  background: #27272a;
+  border-radius: 2px;
+  pointer-events: none;
+}
+
+.powerButton {
+  right: -5px;
+  top: 130px;
+  width: 4px;
+  height: 55px;
+}
+
+.volumeUpButton {
+  left: -5px;
+  top: 115px;
+  width: 4px;
+  height: 42px;
+}
+
+.volumeDownButton {
+  left: -5px;
+  top: 170px;
+  width: 4px;
+  height: 42px;
+}
+
+/* Screen Bezel & Inner Container */
+.screenFrame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #09090b;
+  border-radius: 38px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+/* Camera Notch / Dynamic Island */
+.dynamicNotch {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90px;
+  height: 24px;
+  background: #000;
+  border-radius: 20px;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 8px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.cameraLens {
+  width: 8px;
+  height: 8px;
+  background: #18181b;
+  border-radius: 50%;
+  box-shadow: inset 0 0 2px rgba(255, 255, 255, 0.3);
+}
+
+/* Simulated Status Bar */
+.statusBar {
+  height: 38px;
+  padding: 8px 18px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #a1a1aa;
+  z-index: 30;
+  user-select: none;
+}
+
+/* Handset Inner Scrollable Viewport */
+.phoneContent {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0.5rem 1rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Bottom Home Indicator Bar */
+.homeIndicator {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 110px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 9999px;
+  pointer-events: none;
+  z-index: 40;
+}
+
+/* ==========================================================================
+   Desktop Command Center Mode
+   ========================================================================== */
+
+.desktopContainer {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  animation: fadeIn 0.25s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================================================
+   Small Real-Device Responsive Fallback
+   ========================================================================== */
+
+@media (max-width: 640px) {
+  .topBar {
+    padding: 0.625rem 0.875rem;
+  }
+
+  .brandTagline {
+    display: none;
+  }
+
+  .phoneChassis {
+    width: 100vw;
+    height: calc(100vh - 65px);
+    border-radius: 0;
+    padding: 0;
+    box-shadow: none;
+    background: transparent;
+  }
+
+  .screenFrame {
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .sideButton,
+  .dynamicNotch,
+  .homeIndicator {
+    display: none;
+  }
+
+  .statusBar {
+    display: none;
+  }
+}

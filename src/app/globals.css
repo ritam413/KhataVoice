@@ -1,0 +1,158 @@
+@import "../styles/tokens.module.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Base Surface - Dark Obsidian Canvas by default for sunlight Kirana contrast */
+    --background: 224 43% 7%;      /* #0B0F19 */
+    --foreground: 210 40% 98%;     /* #F8FAFC - 18.3:1 contrast */
+
+    --card: 223 41% 13%;           /* #131B2E */
+    --card-foreground: 210 40% 98%;/* #F8FAFC - 16.4:1 contrast */
+
+    --popover: 223 41% 13%;        /* #131B2E */
+    --popover-foreground: 210 40% 98%;
+
+    /* Bharat Saffron Primary Accent (#FF7700) */
+    --primary: 28 100% 50%;
+    /* Accessibility fix: Dark inverse text (#0B0F19) provides 7.20:1 AAA contrast (White text fails with 2.66:1) */
+    --primary-foreground: 224 43% 7%;
+
+    --secondary: 216 34% 17%;      /* #1E293B */
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 216 34% 17%;
+    --muted-foreground: 215 20% 65%; /* #94A3B8 - 7.47:1 contrast */
+
+    /* Bharat Emerald Accent (#10B981) */
+    --accent: 156 72% 40%;
+    --accent-foreground: 224 43% 7%;
+
+    /* Bharat Crimson Alert (#EF4444) */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 216 34% 17%;         /* #1E293B */
+    --input: 216 34% 17%;          /* #1E293B */
+    --ring: 28 100% 50%;           /* #FF7700 */
+
+    /* Strict geometric radius token: 10px button / input */
+    --radius: 0.625rem;
+  }
+
+  .dark {
+    --background: 224 43% 7%;      /* #0B0F19 */
+    --foreground: 210 40% 98%;     /* #F8FAFC */
+
+    --card: 223 41% 13%;           /* #131B2E */
+    --card-foreground: 210 40% 98%;
+
+    --popover: 223 41% 13%;        /* #131B2E */
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 28 100% 50%;        /* #FF7700 */
+    --primary-foreground: 224 43% 7%; /* Dark text for 7.20:1 AAA contrast */
+
+    --secondary: 216 34% 17%;      /* #1E293B */
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 216 34% 17%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 156 72% 40%;
+    --accent-foreground: 224 43% 7%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 216 34% 17%;
+    --input: 216 34% 17%;
+    --ring: 28 100% 50%;
+  }
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    @apply border-border;
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground min-h-screen;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11", "rlig" 1, "calt" 1;
+    overflow-x: hidden;
+  }
+
+  /* Browser Surfaces Polish (/impeccable Craft Floor) */
+  ::selection {
+    background-color: rgba(255, 119, 0, 0.3);
+    color: #F8FAFC;
+  }
+
+  input,
+  textarea {
+    caret-color: #FF7700;
+  }
+
+  /* Custom Themed Dark Scrollbar */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #1E293B #0B0F19;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #0B0F19;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #1E293B;
+    border-radius: 9999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #242E47;
+  }
+
+  /* Kirana Ergonomics: Base interactive target touch boundaries */
+  button,
+  [role="button"],
+  input[type="submit"],
+  input[type="button"],
+  input[type="reset"] {
+    min-height: 48px;
+    touch-action: manipulation;
+  }
+}
+
+/* Tabular Numerals for Financial Ledgers & Rupee Alignments */
+.tabular-nums,
+[data-tabular="true"] {
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11", "tnum" 1;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Vernacular Script Support (Bengali & Devanagari matra protection) */
+.vernacular-text {
+  line-height: 1.6;
+  letter-spacing: normal;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}

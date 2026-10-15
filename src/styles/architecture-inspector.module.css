@@ -1,0 +1,335 @@
+/* Bharat Modern Architecture & Scalability Inspector Styles */
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background: #090D16;
+  color: #F8FAFC;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 1.25rem;
+  box-sizing: border-box;
+  -webkit-overflow-scrolling: touch;
+}
+
+.headerBanner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: #121826;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.bannerTitleGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.bannerIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  background: rgba(255, 119, 0, 0.15);
+  border: 1px solid rgba(255, 119, 0, 0.3);
+  border-radius: 0.75rem;
+  color: #FF7700;
+}
+
+.bannerTitle {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.bannerSubtitle {
+  font-size: 0.75rem;
+  color: #94A3B8;
+  margin: 0.2rem 0 0;
+}
+
+.backButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.875rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #E2E8F0;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.backButton:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #FFFFFF;
+}
+
+.backButton:active {
+  transform: scale(0.96);
+}
+
+/* Live Health Status Bar */
+.healthGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.875rem;
+  margin-bottom: 1.25rem;
+}
+
+.healthCard {
+  background: #121826;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.875rem;
+  padding: 0.875rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.healthCardTitle {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #64748B;
+}
+
+.healthCardBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.healthCardSub {
+  font-size: 0.7rem;
+  color: #94A3B8;
+}
+
+/* Tabs */
+.tabsList {
+  display: flex;
+  gap: 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 1.25rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+}
+
+.tabBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.875rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  border: none;
+  background: transparent;
+  color: #94A3B8;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.tabBtn:hover {
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.tabBtnActive {
+  background: rgba(255, 119, 0, 0.15) !important;
+  color: #FF7700 !important;
+  border: 1px solid rgba(255, 119, 0, 0.3);
+}
+
+/* Topology Diagram */
+.topologyContainer {
+  background: #121826;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.topologyHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.latencySummary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.75rem;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  border-radius: 2rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #10B981;
+}
+
+.flowTrack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+@media (min-width: 768px) {
+  .flowTrack {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.75rem;
+  }
+}
+
+.flowNode {
+  background: #090D16;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.75rem;
+  padding: 0.875rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.flowNode:hover {
+  border-color: rgba(255, 119, 0, 0.4);
+  transform: translateY(-2px);
+}
+
+.flowNodeStep {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #FF7700;
+  text-transform: uppercase;
+}
+
+.flowNodeTitle {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.flowNodeDesc {
+  font-size: 0.7rem;
+  color: #94A3B8;
+  line-height: 1.4;
+}
+
+.flowNodeLatency {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: #10B981;
+  margin-top: auto;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Scalability Grid */
+.scalabilityGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.scalabilityCard {
+  background: #121826;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.cardIconTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  color: #FFFFFF;
+  font-size: 0.9375rem;
+  font-weight: 700;
+}
+
+.cardBody {
+  font-size: 0.8125rem;
+  color: #94A3B8;
+  line-height: 1.5;
+}
+
+.cardBullet {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: #CBD5E1;
+  margin-top: 0.35rem;
+}
+
+/* Pitch teleprompter drawer */
+.pitchDrawer {
+  background: #121826;
+  border: 1px solid rgba(255, 119, 0, 0.3);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  margin-top: 1rem;
+}
+
+.pitchDrawerTitle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: #FF7700;
+  margin-bottom: 0.75rem;
+}
+
+.scriptTimeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.scriptSegment {
+  display: flex;
+  gap: 0.75rem;
+  padding: 0.625rem;
+  background: #090D16;
+  border-radius: 0.5rem;
+  border-left: 3px solid #FF7700;
+}
+
+.segmentTime {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #10B981;
+  min-width: 65px;
+  font-variant-numeric: tabular-nums;
+}
+
+.segmentContent {
+  font-size: 0.75rem;
+  color: #E2E8F0;
+  line-height: 1.4;
+}

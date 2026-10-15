@@ -1,0 +1,290 @@
+/* -------------------------------------------------------------
+   VIEWS.MODULE.CSS — Screen 3 (Ledger) & Screen 4 (Inventory)
+   Crafted following @emil-design-eng & @ponytail principles
+   ------------------------------------------------------------- */
+
+.viewsContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 12px 14px 80px 14px;
+  background: var(--bg-app, #08090C);
+  color: #FFF;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+.viewsContainer::-webkit-scrollbar {
+  width: 4px;
+}
+.viewsContainer::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+}
+
+/* --- Hero Stat Banners --- */
+.heroBannerLedger {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.12) 0%, rgba(24, 27, 34, 0.85) 100%);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  border-radius: 18px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.heroBannerInventory {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.12) 0%, rgba(24, 27, 34, 0.85) 100%);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  border-radius: 18px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.heroStatLabel {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.heroStatAmount {
+  font-size: 26px;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  margin-top: 4px;
+  font-variant-numeric: tabular-nums;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.heroStatSub {
+  font-size: 11px;
+  color: #94A3B8;
+  margin-top: 3px;
+  line-height: 1.4;
+}
+
+/* --- Search Input Box --- */
+.searchWrapper {
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.searchInput {
+  width: 100%;
+  height: 40px;
+  background: rgba(24, 27, 34, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 0 36px 0 36px;
+  color: #FFF;
+  font-size: 13px;
+  font-family: inherit;
+  transition: border-color 180ms cubic-bezier(0.23, 1, 0.32, 1), box-shadow 180ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: #FF7700;
+  box-shadow: 0 0 0 3px rgba(255, 119, 0, 0.22);
+}
+
+.searchIcon {
+  position: absolute;
+  left: 11px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #64748B;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+}
+
+.searchClearBtn {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.12);
+  border: none;
+  color: #CBD5E1;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.searchClearBtn:active {
+  transform: translateY(-50%) scale(0.92);
+}
+
+/* --- Filter Chips Tray --- */
+.chipsTray {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+  margin-bottom: 12px;
+  scrollbar-width: none;
+}
+.chipsTray::-webkit-scrollbar {
+  display: none;
+}
+
+.chipBtn {
+  background: rgba(24, 27, 34, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #94A3B8;
+  padding: 5px 11px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1), background-color 160ms ease-out, color 160ms ease-out;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.chipBtn:hover {
+  background: rgba(32, 36, 45, 0.9);
+  color: #FFF;
+}
+
+.chipBtn:active {
+  transform: scale(0.96);
+}
+
+.chipBtnActive {
+  background: rgba(255, 119, 0, 0.15);
+  border-color: #FF7700;
+  color: #FF9433;
+  font-weight: 700;
+}
+
+.chipBtnActiveAlert {
+  background: rgba(239, 68, 68, 0.16);
+  border-color: #EF4444;
+  color: #F87171;
+  font-weight: 700;
+}
+
+/* --- Cards Common --- */
+.itemCard {
+  background: rgba(24, 27, 34, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+  transition: transform 180ms cubic-bezier(0.23, 1, 0.32, 1), border-color 180ms ease-out;
+}
+
+.itemCard:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(28, 32, 42, 0.9);
+}
+
+.itemCard:active {
+  transform: scale(0.99);
+}
+
+.itemCardCritical {
+  border-color: rgba(239, 68, 68, 0.35);
+  background: rgba(239, 68, 68, 0.04);
+}
+
+/* --- Action Buttons --- */
+.whatsAppBtn {
+  background: linear-gradient(135deg, #25D366 0%, #1EBE5D 100%);
+  color: #042512;
+  border: none;
+  border-radius: 10px;
+  padding: 6px 12px;
+  font-size: 11.5px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1), box-shadow 160ms ease-out;
+  box-shadow: 0 2px 8px rgba(37, 211, 102, 0.25);
+}
+
+.whatsAppBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.38);
+}
+
+.whatsAppBtn:active {
+  transform: scale(0.96);
+}
+
+.quickRestockBtn {
+  background: rgba(255, 119, 0, 0.12);
+  border: 1px solid rgba(255, 119, 0, 0.35);
+  color: #FF9433;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 5px 9px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 150ms cubic-bezier(0.23, 1, 0.32, 1), background-color 150ms ease-out, color 150ms ease-out;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.quickRestockBtn:hover {
+  background: #FF7700;
+  color: #000;
+  border-color: #FF7700;
+}
+
+.quickRestockBtn:active {
+  transform: scale(0.94);
+}
+
+.quickRestockBtnLarge {
+  background: linear-gradient(135deg, #FF7700 0%, #E06000 100%);
+  color: #000;
+  font-weight: 800;
+  border: none;
+  box-shadow: 0 2px 8px rgba(255, 119, 0, 0.35);
+}
+
+.quickRestockBtnLarge:hover {
+  background: #FF9433;
+  color: #000;
+}
+
+/* --- Pulse Alert Keyframe --- */
+@keyframes pulseBadge {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(0.98);
+  }
+}
+
+.pulseAlert {
+  animation: pulseBadge 2s infinite cubic-bezier(0.23, 1, 0.32, 1);
+}

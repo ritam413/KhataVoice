@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KhataVoice — Voice Modal & 4s Countdown Prototype</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Noto+Sans+Bengali:wght@400;600;700;800&family=Noto+Sans+Devanagari:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* -------------------------------------------------------------
+       1. DESIGN TOKENS & RESET
+       ------------------------------------------------------------- */
+    :root {
+      --bg-app: #08090C;
+      --bg-surface: #12141A;
+      --bg-card: #181B22;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-strong: rgba(255, 255, 255, 0.16);
+      
+      --saffron-500: #FF7700;
+      --saffron-400: #FF9433;
+      --saffron-glow: rgba(255, 119, 0, 0.28);
+      --emerald-500: #10B981;
+      --emerald-glow: rgba(16, 185, 129, 0.22);
+      --crimson-500: #EF4444;
+      --gold-500: #FFB800;
+
+      --text-primary: #FFFFFF;
+      --text-secondary: #94A3B8;
+      --text-muted: #64748B;
+
+      --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+      --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background: #040507;
+      color: var(--text-primary);
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      overflow-x: hidden;
+    }
+
+    .vernacular-bn {
+      font-family: 'Noto Sans Bengali', 'Plus Jakarta Sans', sans-serif;
+    }
+
+    .vernacular-hi {
+      font-family: 'Noto Sans Devanagari', 'Plus Jakarta Sans', sans-serif;
+    }
+
+    /* -------------------------------------------------------------
+       2. SMARTPHONE HARDWARE CHASSIS ($390px x $844px)
+       ------------------------------------------------------------- */
+    .viewport-stage {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    .phone-wrapper {
+      position: relative;
+      margin-bottom: 70px; /* room for bottom floating picker */
+    }
+
+    .phone-chassis {
+      width: 390px;
+      height: 820px;
+      background: #0B0D12;
+      border-radius: 48px;
+      padding: 12px;
+      box-shadow:
+        0 0 0 2px rgba(255, 255, 255, 0.12),
+        0 0 0 7px #1c1f28,
+        0 24px 70px rgba(0, 0, 0, 0.85),
+        0 4px 20px rgba(0, 0, 0, 0.6);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .screen-frame {
+      width: 100%;
+      height: 100%;
+      background: var(--bg-app);
+      border-radius: 38px;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    /* Notch & Status Bar */
+    .status-bar {
+      height: 44px;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      z-index: 50;
+      background: linear-gradient(to bottom, rgba(8, 9, 12, 0.95), transparent);
+    }
+
+    .dynamic-notch {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 124px;
+      height: 28px;
+      background: #000;
+      border-radius: 20px;
+      z-index: 60;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 14px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
+
+    .camera-lens {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #111a2e;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .home-indicator {
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 130px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.35);
+      border-radius: 999px;
+      z-index: 70;
+    }
+
+    /* -------------------------------------------------------------
+       3. SCREEN 1: KIRANA MOBILE HOME CONTENT
+       ------------------------------------------------------------- */
+    .mobile-content {
+      flex: 1;
+      padding: 12px 18px 24px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      overflow-y: auto;
+    }
+
+    .merchant-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .merchant-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--saffron-500), #e65100);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 14px;
+      color: #fff;
+      box-shadow: 0 4px 12px var(--saffron-glow);
+    }
+
+    .merchant-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .merchant-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--emerald-500);
+    }
+
+    .live-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--emerald-500);
+      animation: pulse-dot 2s infinite ease-in-out;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    /* Hero Udhaar Health Card */
+    .hero-stat-card {
+      background: linear-gradient(160deg, #181c25 0%, #111318 100%);
+      border: 1px solid var(--border-subtle);
+      border-radius: 18px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .stat-value-large {
+      font-size: 26px;
+      font-weight: 800;
+      color: #fff;
+      font-feature-settings: "tnum";
+    }
+
+    .stat-grid-mini {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .stat-pill {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 8px 10px;
+    }
+
+    .stat-pill-label {
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+
+    .stat-pill-val {
+      font-size: 13px;
+      font-weight: 700;
+      margin-top: 2px;
+    }
+
+    /* Giant 1-Tap Floating Microphone CTA */
+    .hero-mic-box {
+      background: radial-gradient(circle at center, rgba(255, 119, 0, 0.12) 0%, rgba(255, 119, 0, 0.02) 70%, transparent 100%);
+      border: 1px dashed rgba(255, 119, 0, 0.35);
+      border-radius: 24px;
+      padding: 20px 14px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: all 200ms var(--ease-out);
+    }
+
+    .hero-mic-box:hover {
+      border-color: var(--saffron-500);
+      background: radial-gradient(circle at center, rgba(255, 119, 0, 0.18) 0%, rgba(255, 119, 0, 0.04) 70%, transparent 100%);
+      transform: translateY(-2px);
+    }
+
+    .hero-mic-btn {
+      width: 78px;
+      height: 78px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--saffron-400), var(--saffron-500));
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 0 6px rgba(255, 119, 0, 0.22), 0 10px 24px var(--saffron-glow);
+      cursor: pointer;
+      transition: transform 120ms var(--ease-out);
+    }
+
+    .hero-mic-btn:active {
+      transform: scale(0.92);
+      box-shadow: 0 0 0 2px rgba(255, 119, 0, 0.4), 0 4px 12px var(--saffron-glow);
+    }
+
+    .hero-mic-icon {
+      font-size: 32px;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+    }
+
+    .mic-caption-main {
+      font-size: 14px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .mic-caption-sub {
+      font-size: 11px;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    /* Presets Quick Drawer */
+    .section-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 4px;
+    }
+
+    .presets-row {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .preset-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: all 150ms var(--ease-out);
+    }
+
+    .preset-card:hover {
+      border-color: var(--border-strong);
+      background: #1e222b;
+      transform: translateX(2px);
+    }
+
+    .preset-left {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .preset-name {
+      font-size: 12px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .preset-speech {
+      font-size: 11px;
+      color: var(--text-secondary);
+    }
+
+    .preset-amt {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--saffron-400);
+      font-feature-settings: "tnum";
+    }
+
+    /* -------------------------------------------------------------
+       4. SCREEN 2: VOICE ENTRY MODAL OVERLAY & VARIANTS
+       ------------------------------------------------------------- */
+    .modal-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+      display: flex;
+      align-items: flex-end;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 200ms var(--ease-out);
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Base Modal Sheet */
+    .modal-sheet {
+      width: 100%;
+      background: #11141B;
+      border-top: 1px solid var(--border-strong);
+      border-radius: 28px 28px 0 0;
+      padding: 18px 18px 28px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      box-shadow: 0 -10px 40px rgba(0,0,0,0.8);
+      transform: translateY(100%);
+      transition: transform 260ms var(--ease-drawer);
+      max-height: 90%;
+      overflow-y: auto;
+    }
+
+    .modal-overlay.active .modal-sheet {
+      transform: translateY(0);
+    }
+
+    .sheet-handle {
+      width: 36px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 999px;
+      align-self: center;
+      margin-bottom: 4px;
+    }
+
+    /* Live Waveform Canvas */
+    .waveform-canvas-box {
+      width: 100%;
+      height: 60px;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    canvas.waveform-canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* Linear 4-Second Countdown Timer Bar */
+    .countdown-container {
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .countdown-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .countdown-time-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--saffron-400);
+      background: rgba(255, 119, 0, 0.14);
+      padding: 1px 6px;
+      border-radius: 6px;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 999px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(90deg, var(--saffron-500), var(--gold-500));
+      border-radius: 999px;
+      transition: width 100ms linear;
+    }
+
+    /* Modal Action Buttons */
+    .modal-actions {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .btn-secondary {
+      height: 48px;
+      border-radius: 14px;
+      border: 1px solid var(--border-subtle);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-secondary);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 140ms var(--ease-out);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+    }
+
+    .btn-secondary:active {
+      transform: scale(0.96);
+    }
+
+    .btn-confirm {
+      height: 48px;
+      border-radius: 14px;
+      border: none;
+      background: linear-gradient(135deg, var(--saffron-400), var(--saffron-500));
+      color: #fff;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      box-shadow: 0 4px 16px var(--saffron-glow);
+      transition: all 140ms var(--ease-out);
+    }
+
+    .btn-confirm:hover {
+      filter: brightness(1.08);
+    }
+
+    .btn-confirm:active {
+      transform: scale(0.96);
+    }
+
+    /* -------------------------------------------------------------
+       5. VARIANT SPECIFICS
+       ------------------------------------------------------------- */
+    
+    /* VARIANT 1: BHARAT RETAIL SOUNDBOX */
+    .soundbox-hardware {
+      background: linear-gradient(180deg, #181d28 0%, #10131a 100%);
+      border: 2px solid rgba(255, 119, 0, 0.3);
+      border-radius: 20px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .soundbox-speaker-grille {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #252b38 20%, #151821 70%);
+      border: 3px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .speaker-wave-ring {
+      position: absolute;
+      inset: -6px;
+      border-radius: 50%;
+      border: 2px solid var(--saffron-500);
+      opacity: 0;
+      animation: soundbox-pulse 1.8s infinite ease-out;
+    }
+
+    @keyframes soundbox-pulse {
+      0% { transform: scale(0.85); opacity: 0.8; }
+      100% { transform: scale(1.4); opacity: 0; }
+    }
+
+    .soundbox-screen-readout {
+      text-align: center;
+      width: 100%;
+    }
+
+    .soundbox-customer-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-subtle);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .soundbox-amount {
+      font-size: 38px;
+      font-weight: 900;
+      color: #fff;
+      margin: 4px 0;
+      font-feature-settings: "tnum";
+      letter-spacing: -1px;
+    }
+
+    .soundbox-item-breakdown {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    /* VARIANT 2: COMPACT BOTTOM SHEET */
+    .compact-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .compact-pill-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .compact-chip {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 6px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .compact-inline-confirm {
+      height: 52px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--saffron-400), var(--saffron-500));
+      border: none;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 20px var(--saffron-glow);
+    }
+
+    .compact-inline-progress {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.7);
+      width: 100%;
+      transition: width 100ms linear;
+    }
+
+    /* VARIANT 3: DUAL-CARD SPLIT ACTION */
+    .dual-card-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .card-top-audio {
+      background: #141720;
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .card-bottom-impact {
+      background: linear-gradient(160deg, #181d26 0%, #12141c 100%);
+      border: 1px solid rgba(255, 119, 0, 0.25);
+      border-radius: 16px;
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .impact-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+    }
+
+    .stock-decrement-badge {
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: var(--crimson-500);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 6px;
+    }
+
+    /* Success Soundbox Banner (After Commit) */
+    .success-soundbox-banner {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(16, 185, 129, 0.05) 100%);
+      border: 1px solid var(--emerald-500);
+      border-radius: 18px;
+      padding: 20px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      animation: popIn 220ms var(--ease-out);
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0.9); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .success-icon-box {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--emerald-500);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: #fff;
+      box-shadow: 0 4px 16px var(--emerald-glow);
+    }
+
+    /* -------------------------------------------------------------
+       6. THE PICKER (VERBATIM FROM PICKER.MD SPEC)
+       ------------------------------------------------------------- */
+    .proto-picker {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2147483647;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      padding: 4px;
+      border-radius: 999px;
+      background: rgba(10, 10, 10, 0.88);
+      -webkit-backdrop-filter: blur(14px) saturate(1.4);
+      backdrop-filter: blur(14px) saturate(1.4);
+      box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.1) inset,
+        0 8px 24px rgba(0, 0, 0, 0.35),
+        0 2px 6px rgba(0, 0, 0, 0.18);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 13px;
+      line-height: 1;
+      -webkit-font-smoothing: antialiased;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .proto-picker-highlight {
+      position: absolute;
+      top: 4px;
+      left: 0;
+      height: 28px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.14);
+      will-change: transform, width;
+    }
+
+    .proto-picker[data-ready] .proto-picker-highlight {
+      transition:
+        transform 250ms cubic-bezier(0.23, 1, 0.32, 1),
+        width 250ms cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .proto-picker[data-ready] .proto-picker-highlight { transition: none; }
+    }
+
+    .proto-picker-item {
+      position: relative;
+      display: flex;
+      align-items: center;
+      height: 28px;
+      padding: 0 14px;
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      color: rgba(255, 255, 255, 0.6);
+      font: inherit;
+      font-weight: 500;
+      cursor: pointer;
+      transition: color 150ms ease-out;
+      white-space: nowrap;
+    }
+
+    .proto-picker-item:hover {
+      color: rgba(255, 255, 255, 0.95);
+    }
+
+    .proto-picker-item:active {
+      transform: scale(0.97);
+    }
+
+    .proto-picker-item:focus-visible {
+      outline: 2px solid rgba(255, 255, 255, 0.4);
+      outline-offset: 2px;
+    }
+
+    .proto-picker-item[data-active] {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .proto-picker-divider {
+      width: 1px;
+      height: 16px;
+      margin: 0 4px;
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .proto-picker-replay {
+      padding: 0 10px;
+      font-size: 15px;
+    }
+
+    /* Instructions callout */
+    .proto-info {
+      position: fixed;
+      top: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(18, 20, 26, 0.85);
+      border: 1px solid var(--border-subtle);
+      border-radius: 999px;
+      padding: 6px 16px;
+      font-size: 12px;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+    }
+
+    .kbd-shortcut {
+      background: rgba(255,255,255,0.1);
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 11px;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Instructions Pill -->
+  <div class="proto-info">
+    <span>🎙️ <strong>KhataVoice KV-15 Prototype</strong></span>
+    <span>•</span>
+    <span>Use keys <span class="kbd-shortcut">1</span> <span class="kbd-shortcut">2</span> <span class="kbd-shortcut">3</span> to switch variants, <span class="kbd-shortcut">R</span> to replay</span>
+  </div>
+
+  <div class="viewport-stage">
+    <div class="phone-wrapper">
+      <div class="phone-chassis">
+        <div class="screen-frame">
+
+          <!-- Dynamic Notch -->
+          <div class="dynamic-notch">
+            <div class="camera-lens"></div>
+          </div>
+
+          <!-- Status Bar -->
+          <div class="status-bar">
+            <span id="current-time">10:42</span>
+            <div style="display: flex; gap: 6px; align-items: center;">
+              <span>5G</span>
+              <span>98%</span>
+            </div>
+          </div>
+
+          <!-- SCREEN 1: Mobile Home Content -->
+          <div class="mobile-content">
+            
+            <!-- Merchant Header -->
+            <div class="merchant-header">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <div class="merchant-avatar">মা</div>
+                <div>
+                  <div class="merchant-title vernacular-bn">মা তারা ভ্যারাইটি স্টোর</div>
+                  <div class="merchant-sub">শ্যামপুর, হাওড়া • ৯৮৩০০ ১২৩৪৫</div>
+                </div>
+              </div>
+              <div class="live-badge">
+                <span class="live-dot"></span>
+                <span>Active</span>
+              </div>
+            </div>
+
+            <!-- Hero Udhaar Health Summary -->
+            <div class="hero-stat-card">
+              <div class="stat-row">
+                <div>
+                  <div class="stat-label">Total Udhaar Balance</div>
+                  <div class="stat-value-large" style="color: #FF5555;">₹3,010</div>
+                </div>
+                <div style="text-align: right;">
+                  <div class="stat-label">Trust Score</div>
+                  <div style="display: inline-flex; align-items: center; gap: 4px; background: rgba(255, 184, 0, 0.15); border: 1px solid rgba(255, 184, 0, 0.3); color: #FFB800; font-weight: 800; font-size: 12px; padding: 2px 8px; border-radius: 999px; margin-top: 4px;">
+                    ⭐ 82 Silver
+                  </div>
+                </div>
+              </div>
+
+              <div class="stat-grid-mini">
+                <div class="stat-pill">
+                  <div class="stat-pill-label">Recovered This Week</div>
+                  <div class="stat-pill-val" style="color: var(--emerald-500);">+ ₹2,450</div>
+                </div>
+                <div class="stat-pill">
+                  <div class="stat-pill-label">At-Risk Accounts</div>
+                  <div class="stat-pill-val" style="color: #FF5555;">2 Customers</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Giant 1-Tap Microphone Hero CTA -->
+            <div class="hero-mic-box" id="open-mic-trigger" onclick="openVoiceModal('preset1')">
+              <div class="hero-mic-btn">
+                <span class="hero-mic-icon">🎙️</span>
+              </div>
+              <div class="mic-caption-main vernacular-bn">বোলিয়ে বা লিখুন (Tap to Speak)</div>
+              <div class="mic-caption-sub vernacular-bn">
+                &ldquo;শ্যামবাবু ২ কেজি চাল বাকি&rdquo;<br>
+                <span style="opacity: 0.7; font-size: 10px;">&ldquo;रोहित जी 150 रुपये उधार लिख लो&rdquo;</span>
+              </div>
+            </div>
+
+            <!-- Presets Section -->
+            <div class="section-title">Kirana 1-Click Test Presets</div>
+            <div class="presets-row">
+              <div class="preset-card" onclick="openVoiceModal('preset1')">
+                <div class="preset-left">
+                  <div class="preset-name vernacular-bn">শ্যামবাবু (Shyam Babu) • Gold 88</div>
+                  <div class="preset-speech vernacular-bn">&ldquo;শ্যামবাবু ২ কেজি মিনিকেট চাল বাকি&rdquo;</div>
+                </div>
+                <div class="preset-amt">₹260</div>
+              </div>
+
+              <div class="preset-card" onclick="openVoiceModal('preset2')">
+                <div class="preset-left">
+                  <div class="preset-name vernacular-hi">रोहित शर्मा (Rohit Sharma) • Silver 74</div>
+                  <div class="preset-speech vernacular-hi">&ldquo;रोहित जी १५০ रुपये उधार लिख लो&rdquo;</div>
+                </div>
+                <div class="preset-amt">₹150</div>
+              </div>
+
+              <div class="preset-card" onclick="openVoiceModal('preset3')">
+                <div class="preset-left">
+                  <div class="preset-name vernacular-bn">প্রিয়া ঘোষ (Priya Ghosh) • Gold 92</div>
+                  <div class="preset-speech vernacular-bn">&ldquo;প্রিয়া ঘোষ ৫০ টাকা জমা&rdquo; (Payment)</div>
+                </div>
+                <div class="preset-amt" style="color: var(--emerald-500);">₹50</div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- SCREEN 2: VOICE ENTRY MODAL OVERLAY -->
+          <div class="modal-overlay" id="voice-modal-overlay">
+            <div class="modal-sheet">
+              <div class="sheet-handle"></div>
+
+              <!-- Top Audio Waveform Area (Universal across variants) -->
+              <div class="waveform-canvas-box">
+                <canvas id="waveform-canvas" class="waveform-canvas"></canvas>
+                <div id="transcript-overlay" style="position: absolute; bottom: 6px; font-size: 11px; font-weight: 700; color: #fff; background: rgba(0,0,0,0.6); padding: 2px 8px; border-radius: 999px;">
+                  🎙️ Listening...
+                </div>
+              </div>
+
+              <!-- DIVERGENT VARIANT CONTAINER INJECTED HERE -->
+              <div id="variant-slot">
+                <!-- Dynamically populated by JS according to active variant -->
+              </div>
+
+              <!-- Linear 4-Second Countdown Timer (Standard in Variant 1 & 3) -->
+              <div class="countdown-container" id="countdown-box">
+                <div class="countdown-header">
+                  <span style="color: var(--text-secondary);">Auto-Commit in</span>
+                  <span class="countdown-time-badge" id="countdown-num">4.0s</span>
+                </div>
+                <div class="progress-track">
+                  <div class="progress-fill" id="countdown-bar"></div>
+                </div>
+              </div>
+
+              <!-- Confirm & Cancel Actions -->
+              <div class="modal-actions" id="modal-actions-box">
+                <button class="btn-secondary" onclick="cancelCommit()">
+                  ✕ Cancel / Edit
+                </button>
+                <button class="btn-confirm" id="confirm-btn" onclick="executeCommit()">
+                  ✓ Confirm Now
+                </button>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Bottom Home Indicator Bar -->
+          <div class="home-indicator"></div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLOATING PROTOTYPE PICKER (Verbatim specification from PICKER.md) -->
+  <nav class="proto-picker" id="proto-picker" aria-label="Prototype variants">
+    <span class="proto-picker-highlight" id="proto-highlight" aria-hidden="true"></span>
+    <button class="proto-picker-item" data-active aria-current="true" onclick="setVariant(0)">1: Bharat Soundbox</button>
+    <button class="proto-picker-item" onclick="setVariant(1)">2: Compact Sheet</button>
+    <button class="proto-picker-item" onclick="setVariant(2)">3: Dual-Card Action</button>
+    <span class="proto-picker-divider" aria-hidden="true"></span>
+    <button class="proto-picker-item proto-picker-replay" aria-label="Replay animation (R)" onclick="replayCurrentVariant()">↻</button>
+  </nav>
+
+  <script>
+    /* -------------------------------------------------------------
+       AUDIO & SOUNDBOX SYNTHESIZER (Pure Web Audio API + SpeechSynthesis)
+       ------------------------------------------------------------- */
+    let audioCtx = null;
+
+    function getAudioContext() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
+    // Dual-harmonic retail Soundbox bell chime
+    function playSoundboxChime() {
+      try {
+        const ctx = getAudioContext();
+        const now = ctx.currentTime;
+        const notes = [
+          { freq: 587.33, start: 0, duration: 0.12 },
+          { freq: 880.0, start: 0.1, duration: 0.18 },
+          { freq: 1174.66, start: 0.22, duration: 0.45 },
+        ];
+
+        notes.forEach(({ freq, start, duration }) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(freq, now + start);
+
+          gain.gain.setValueAtTime(0.001, now + start);
+          gain.gain.linearRampToValueAtTime(0.3, now + start + 0.015);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + start + duration);
+
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+
+          osc.start(now + start);
+          osc.stop(now + start + duration);
+        });
+      } catch (e) {
+        console.warn('AudioContext error:', e);
+      }
+    }
+
+    // Vernacular TTS confirmation
+    function speakVernacularConfirmation(customer, amount, lang = 'bn') {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        let text = '';
+        let code = 'bn-IN';
+
+        if (lang === 'bn') {
+          text = `${customer}: ${amount} টাকা বাকি সেভ হয়েছে`;
+          code = 'bn-IN';
+        } else if (lang === 'hi') {
+          text = `${customer}: ${amount} रुपये उधार दर्ज हो गया`;
+          code = 'hi-IN';
+        } else {
+          text = `${customer}: ${amount} rupees udhaar recorded`;
+          code = 'en-IN';
+        }
+
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = code;
+        utterance.rate = 1.05;
+        window.speechSynthesis.speak(utterance);
+      }
+    }
+
+    /* -------------------------------------------------------------
+       STATE MANAGEMENT & PROTOTYPE VARIANTS
+       ------------------------------------------------------------- */
+    const variants = [
+      { name: "Bharat Soundbox", axis: "Tactile Retail Audio Box" },
+      { name: "Compact Sheet", axis: "Dense Bottom Drawer" },
+      { name: "Dual-Card Action", axis: "Audio + Live Ledger Impact Split" }
+    ];
+
+    let currentVariantIdx = 0;
+    let countdownInterval = null;
+    let countdownRemainingMs = 4000;
+    let isCommitted = false;
+    let currentPreset = 'preset1';
+
+    const presetData = {
+      preset1: {
+        customer: 'শ্যামবাবু (Shyam Babu)',
+        trust: 88,
+        tier: 'Gold',
+        type: 'Udhaar Sale (বাকি)',
+        amount: 260,
+        items: 'মিনিকেট চাল ২ কেজি (@₹৬৫)',
+        transcript: '“শ্যামবাবু ২ কেজি চাল বাকি”',
+        lang: 'bn'
+      },
+      preset2: {
+        customer: 'रोहित शर्मा (Rohit Sharma)',
+        trust: 74,
+        tier: 'Silver',
+        type: 'Udhaar Sale (उधार)',
+        amount: 150,
+        items: 'सरसों तेल १ लीटर (@₹১৫০)',
+        transcript: '“रोहित जी १५০ रुपये उधार लिख लो”',
+        lang: 'hi'
+      },
+      preset3: {
+        customer: 'প্রিয়া ঘোষ (Priya Ghosh)',
+        trust: 92,
+        tier: 'Gold',
+        type: 'Debt Payment (জমা)',
+        amount: 50,
+        items: 'নগদ জমা (Cash Received)',
+        transcript: '“প্রিয়া ঘোষ ৫০ টাকা জমা”',
+        lang: 'bn'
+      }
+    };
+
+    /* -------------------------------------------------------------
+       CANVAS 60FPS WAVEFORM VISUALIZER
+       ------------------------------------------------------------- */
+    const canvas = document.getElementById('waveform-canvas');
+    const ctx = canvas.getContext('2d');
+    let animationFrameId = null;
+    let wavePhase = 0;
+
+    function resizeCanvas() {
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width * window.devicePixelRatio;
+      canvas.height = rect.height * window.devicePixelRatio;
+      ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+    }
+
+    function drawWaveform() {
+      const width = canvas.getBoundingClientRect().width;
+      const height = canvas.getBoundingClientRect().height;
+
+      ctx.clearRect(0, 0, width, height);
+
+      const numBars = 32;
+      const barWidth = 4;
+      const gap = (width - numBars * barWidth) / (numBars - 1);
+
+      for (let i = 0; i < numBars; i++) {
+        const x = i * (barWidth + gap);
+        // Multi-frequency synthetic oscillation
+        const harmonic = Math.sin(wavePhase + i * 0.3) * 0.5 + Math.cos(wavePhase * 1.5 + i * 0.2) * 0.5;
+        const normalized = Math.max(0.15, Math.abs(harmonic));
+        const barHeight = normalized * (height * 0.75);
+        const y = (height - barHeight) / 2;
+
+        const grad = ctx.createLinearGradient(0, y, 0, y + barHeight);
+        grad.addColorStop(0, '#FFB800');
+        grad.addColorStop(1, '#FF7700');
+
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.roundRect(x, y, barWidth, barHeight, 3);
+        ctx.fill();
+      }
+
+      wavePhase += 0.08;
+      animationFrameId = requestAnimationFrame(drawWaveform);
+    }
+
+    /* -------------------------------------------------------------
+       VARIANT RENDERING
+       ------------------------------------------------------------- */
+    function renderVariantUI() {
+      const slot = document.getElementById('variant-slot');
+      const data = presetData[currentPreset];
+      const countdownBox = document.getElementById('countdown-box');
+      const actionsBox = document.getElementById('modal-actions-box');
+
+      if (isCommitted) {
+        countdownBox.style.display = 'none';
+        actionsBox.style.display = 'none';
+        slot.innerHTML = `
+          <div class="success-soundbox-banner">
+            <div class="success-icon-box">✓</div>
+            <div style="font-size: 16px; font-weight: 800; color: #fff;">
+              ${data.customer}
+            </div>
+            <div style="font-size: 28px; font-weight: 900; color: var(--emerald-500); font-feature-settings: 'tnum';">
+              ₹${data.amount} বাকি সেভ হয়েছে
+            </div>
+            <div style="font-size: 11px; color: var(--text-secondary);">
+              🔊 Retail Soundbox Spoken Confirmation Complete
+            </div>
+            <button class="btn-secondary" style="margin-top: 6px; width: 100%;" onclick="closeVoiceModal()">
+              Done / Return Home
+            </button>
+          </div>
+        `;
+        return;
+      }
+
+      // VARIANT 1: BHARAT RETAIL SOUNDBOX
+      if (currentVariantIdx === 0) {
+        countdownBox.style.display = 'flex';
+        actionsBox.style.display = 'grid';
+        slot.innerHTML = `
+          <div class="soundbox-hardware">
+            <div class="soundbox-speaker-grille">
+              <span style="font-size: 26px;">📢</span>
+              <div class="speaker-wave-ring"></div>
+            </div>
+
+            <div class="soundbox-screen-readout">
+              <div class="soundbox-customer-tag">
+                <span>👤 ${data.customer}</span>
+                <span style="color: var(--gold-500);">⭐ ${data.trust}</span>
+              </div>
+              <div class="soundbox-amount">₹${data.amount}</div>
+              <div class="soundbox-item-breakdown vernacular-bn">
+                ${data.items} • <span style="color: var(--saffron-400); font-weight: 700;">${data.type}</span>
+              </div>
+            </div>
+          </div>
+        `;
+      } 
+      // VARIANT 2: COMPACT BOTTOM SHEET
+      else if (currentVariantIdx === 1) {
+        countdownBox.style.display = 'none'; // Integrated into button
+        actionsBox.style.display = 'none';
+        slot.innerHTML = `
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <div class="compact-header">
+              <div style="font-size: 14px; font-weight: 800; color: #fff;">
+                ${data.customer}
+              </div>
+              <div style="font-size: 20px; font-weight: 800; color: var(--saffron-400);">
+                ₹${data.amount}
+              </div>
+            </div>
+
+            <div class="compact-pill-grid">
+              <div class="compact-chip">
+                <span>⭐ ${data.tier} (${data.trust})</span>
+              </div>
+              <div class="compact-chip">
+                <span>📦 ${data.items}</span>
+              </div>
+              <div class="compact-chip" style="color: var(--saffron-400); border-color: rgba(255, 119, 0, 0.3);">
+                <span>📝 ${data.type}</span>
+              </div>
+            </div>
+
+            <button class="compact-inline-confirm" onclick="executeCommit()">
+              <span>✓ Auto-Commit in <strong id="compact-countdown-num">4.0s</strong></span>
+              <span>Tap to Confirm ➔</span>
+              <div class="compact-inline-progress" id="compact-progress-bar"></div>
+            </button>
+
+            <button class="btn-secondary" style="height: 40px;" onclick="cancelCommit()">
+              ✕ Cancel / Change Entry
+            </button>
+          </div>
+        `;
+      } 
+      // VARIANT 3: DUAL-CARD SPLIT ACTION
+      else if (currentVariantIdx === 2) {
+        countdownBox.style.display = 'flex';
+        actionsBox.style.display = 'grid';
+        slot.innerHTML = `
+          <div class="dual-card-container">
+            <!-- Top Audio Card -->
+            <div class="card-top-audio">
+              <div style="display: flex; justify-content: space-between; font-size: 11px;">
+                <span style="color: var(--text-secondary);">Spoken Transcription</span>
+                <span style="color: var(--emerald-500); font-weight: 700;">100% Match</span>
+              </div>
+              <div style="font-size: 13px; font-weight: 700; color: #fff;" class="vernacular-bn">
+                ${data.transcript}
+              </div>
+            </div>
+
+            <!-- Bottom Financial & Inventory Impact Card -->
+            <div class="card-bottom-impact">
+              <div class="impact-row">
+                <span style="color: var(--text-secondary);">Customer Balance Delta:</span>
+                <span style="font-weight: 800; color: #FF5555;">+₹${data.amount} (Udhaar)</span>
+              </div>
+              <div class="impact-row">
+                <span style="color: var(--text-secondary);">Store Inventory Delta:</span>
+                <span class="stock-decrement-badge">-2 kg Stock</span>
+              </div>
+              <div class="impact-row" style="padding-top: 4px; border-top: 1px solid var(--border-subtle);">
+                <span style="font-size: 11px; color: var(--text-muted);">Atomic Dual-Sync:</span>
+                <span style="font-size: 11px; font-weight: 700; color: var(--emerald-500);">ACID Stored Proc</span>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    /* -------------------------------------------------------------
+       COUNTDOWN STATE MACHINE
+       ------------------------------------------------------------- */
+    function startCountdown() {
+      clearInterval(countdownInterval);
+      countdownRemainingMs = 4000;
+      isCommitted = false;
+
+      renderVariantUI();
+
+      const startTime = Date.now();
+      countdownInterval = setInterval(() => {
+        const elapsed = Date.now() - startTime;
+        countdownRemainingMs = Math.max(0, 4000 - elapsed);
+
+        const pct = (countdownRemainingMs / 4000) * 100;
+        const secondsText = (countdownRemainingMs / 1000).toFixed(1) + 's';
+
+        // Update Standard countdown bar (Variant 1 & 3)
+        const bar = document.getElementById('countdown-bar');
+        const num = document.getElementById('countdown-num');
+        if (bar && num) {
+          bar.style.width = pct + '%';
+          num.textContent = secondsText;
+        }
+
+        // Update Inline countdown bar (Variant 2)
+        const compactBar = document.getElementById('compact-progress-bar');
+        const compactNum = document.getElementById('compact-countdown-num');
+        if (compactBar && compactNum) {
+          compactBar.style.width = pct + '%';
+          compactNum.textContent = secondsText;
+        }
+
+        if (countdownRemainingMs <= 0) {
+          clearInterval(countdownInterval);
+          executeCommit();
+        }
+      }, 50);
+    }
+
+    function executeCommit() {
+      clearInterval(countdownInterval);
+      if (isCommitted) return;
+      isCommitted = true;
+
+      const data = presetData[currentPreset];
+
+      // Play Soundbox Chime + Vernacular TTS
+      playSoundboxChime();
+      speakVernacularConfirmation(data.customer, data.amount, data.lang);
+
+      renderVariantUI();
+    }
+
+    function cancelCommit() {
+      clearInterval(countdownInterval);
+      closeVoiceModal();
+    }
+
+    function openVoiceModal(preset = 'preset1') {
+      currentPreset = preset;
+      const data = presetData[preset];
+      document.getElementById('transcript-overlay').textContent = `🎙️ ${data.transcript}`;
+
+      document.getElementById('voice-modal-overlay').classList.add('active');
+      resizeCanvas();
+      drawWaveform();
+      startCountdown();
+    }
+
+    function closeVoiceModal() {
+      document.getElementById('voice-modal-overlay').classList.remove('active');
+      clearInterval(countdownInterval);
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+    }
+
+    /* -------------------------------------------------------------
+       FLOATING PICKER WIRING (FROM PICKER.MD SPEC)
+       ------------------------------------------------------------- */
+    const picker = document.getElementById('proto-picker');
+    const highlight = document.getElementById('proto-highlight');
+    const items = picker.querySelectorAll('.proto-picker-item:not(.proto-picker-replay)');
+
+    function positionHighlight(item) {
+      highlight.style.transform = `translateX(${item.offsetLeft}px)`;
+      highlight.style.width = `${item.offsetWidth}px`;
+    }
+
+    function setVariant(index) {
+      if (index < 0 || index >= items.length) return;
+      currentVariantIdx = index;
+
+      items.forEach((btn, idx) => {
+        if (idx === index) {
+          btn.setAttribute('data-active', '');
+          btn.setAttribute('aria-current', 'true');
+          positionHighlight(btn);
+        } else {
+          btn.removeAttribute('data-active');
+          btn.removeAttribute('aria-current');
+        }
+      });
+
+      // Rerender active modal if open
+      if (document.getElementById('voice-modal-overlay').classList.contains('active')) {
+        startCountdown();
+      }
+    }
+
+    function replayCurrentVariant() {
+      openVoiceModal(currentPreset);
+    }
+
+    // Keyboard navigation
+    window.addEventListener('keydown', (e) => {
+      if (e.key === '1') setVariant(0);
+      if (e.key === '2') setVariant(1);
+      if (e.key === '3') setVariant(2);
+      if (e.key === 'r' || e.key === 'R') replayCurrentVariant();
+      if (e.key === 'Escape') closeVoiceModal();
+      if (e.key === 'ArrowRight') setVariant((currentVariantIdx + 1) % 3);
+      if (e.key === 'ArrowLeft') setVariant((currentVariantIdx + 2) % 3);
+    });
+
+    // Initialize highlight position on first load
+    window.addEventListener('DOMContentLoaded', () => {
+      positionHighlight(items[0]);
+      setTimeout(() => picker.setAttribute('data-ready', ''), 50);
+
+      // Status bar time updater
+      const now = new Date();
+      document.getElementById('current-time').textContent = 
+        `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+    });
+
+    window.addEventListener('resize', () => {
+      positionHighlight(items[currentVariantIdx]);
+      resizeCanvas();
+    });
+  </script>
+</body>
+</html>

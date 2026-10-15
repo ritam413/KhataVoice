@@ -1,0 +1,423 @@
+/* WhatsApp Recovery Modal (Screen 5) - Bharat Modern Fintech Aesthetic */
+
+.modalOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background-color: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  animation: fadeIn 200ms cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modalSheet {
+  width: 100%;
+  max-height: 92%;
+  display: flex;
+  flex-direction: column;
+  background-color: #0d121c;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+  box-shadow: 0 -12px 32px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+  animation: slideUp 280ms cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.grabber {
+  width: 40px;
+  height: 4px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 9999px;
+  margin: 10px auto 4px auto;
+  flex-shrink: 0;
+}
+
+/* Modal Header */
+.header {
+  padding: 12px 18px 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
+}
+
+.customerMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.customerNameRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.customerName {
+  font-size: 15px;
+  font-weight: 700;
+  color: #f8fafc;
+}
+
+.customerPhone {
+  font-size: 11px;
+  font-family: var(--font-mono, monospace);
+  color: #94a3b8;
+}
+
+.debtBadge {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.debtAmount {
+  font-size: 16px;
+  font-weight: 900;
+  color: #fb7185;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
+.debtLabel {
+  font-size: 10px;
+  font-weight: 600;
+  color: #fda4af;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.closeBtn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #cbd5e1;
+  transition: all 150ms ease;
+  margin-left: 10px;
+}
+
+.closeBtn:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+
+.closeBtn:active {
+  transform: scale(0.92);
+}
+
+/* Scrollable Content */
+.contentBody {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Control Row for Tones */
+.controlSection {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sectionLabel {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Segmented Control Buttons */
+.toneSelector {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  background-color: rgba(15, 23, 42, 0.6);
+  padding: 4px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.toneBtn {
+  padding: 8px 6px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  color: #94a3b8;
+  background: transparent;
+  border: 1px solid transparent;
+  transition: all 160ms cubic-bezier(0.23, 1, 0.32, 1);
+  cursor: pointer;
+  text-align: center;
+}
+
+.toneBtn:active {
+  transform: scale(0.96);
+}
+
+.toneBtnActive {
+  background: rgba(30, 41, 59, 0.9);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+.toneBtnPolite.toneBtnActive {
+  border-color: rgba(244, 114, 182, 0.5);
+  color: #fbcfe8;
+}
+
+.toneBtnFriendly.toneBtnActive {
+  border-color: rgba(56, 189, 248, 0.5);
+  color: #bae6fd;
+}
+
+.toneBtnFirm.toneBtnActive {
+  border-color: rgba(251, 113, 133, 0.6);
+  color: #fecdd3;
+  background: rgba(136, 19, 55, 0.3);
+}
+
+/* Language Chips */
+.langPills {
+  display: flex;
+  gap: 6px;
+}
+
+.langPill {
+  flex: 1;
+  padding: 6px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background-color: rgba(15, 23, 42, 0.5);
+  color: #94a3b8;
+  transition: all 150ms ease;
+  cursor: pointer;
+}
+
+.langPillActive {
+  background-color: #2563eb;
+  border-color: #3b82f6;
+  color: #ffffff;
+}
+
+/* Trust Advice Alert */
+.trustAdvice {
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 11px;
+  line-height: 1.4;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* WhatsApp Message Bubble Simulation */
+.whatsappContainer {
+  display: flex;
+  flex-direction: column;
+  background-color: #0b141a;
+  border: 1px solid rgba(37, 211, 102, 0.25);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.whatsappHeader {
+  background-color: #1f2c34;
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.whatsappAvatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #128c7e, #25d366);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 12px;
+  color: white;
+}
+
+.whatsappHeaderInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.whatsappHeaderName {
+  font-size: 12px;
+  font-weight: 700;
+  color: #e9edef;
+}
+
+.whatsappHeaderStatus {
+  font-size: 10px;
+  color: #25d366;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.whatsappBody {
+  padding: 14px 14px 12px 14px;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 0);
+  background-size: 16px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.chatBubble {
+  max-width: 92%;
+  background-color: #005c4b;
+  color: #e9edef;
+  border-radius: 12px 0px 12px 12px;
+  padding: 10px 12px 8px 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+.messageText {
+  font-size: 12.5px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.upiLinkTag {
+  display: inline-block;
+  color: #53bdeb;
+  text-decoration: underline;
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  word-break: break-all;
+  margin-top: 4px;
+}
+
+.bubbleMeta {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  margin-top: 6px;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.ticks {
+  color: #53bdeb;
+  display: inline-flex;
+}
+
+/* Actions Bar */
+.actionsBar {
+  padding: 12px 18px 18px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background-color: #0d121c;
+  flex-shrink: 0;
+}
+
+.sendWhatsappBtn {
+  width: 100%;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #16a34a, #22c55e);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 14px rgba(34, 197, 94, 0.35);
+  cursor: pointer;
+  transition: all 160ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.sendWhatsappBtn:hover {
+  background: linear-gradient(135deg, #15803d, #16a34a);
+  box-shadow: 0 6px 18px rgba(34, 197, 94, 0.45);
+}
+
+.sendWhatsappBtn:active {
+  transform: scale(0.97);
+}
+
+.copyClipboardBtn {
+  width: 100%;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  background-color: rgba(255, 255, 255, 0.06);
+  color: #e2e8f0;
+  font-weight: 600;
+  font-size: 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  cursor: pointer;
+  transition: all 150ms ease;
+}
+
+.copyClipboardBtn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.copyClipboardBtn:active {
+  transform: scale(0.97);
+}

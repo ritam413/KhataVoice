@@ -1,0 +1,771 @@
+/* ==========================================================================
+   KhataVoice — Screen 6: Desktop Merchant Command Center Styles
+   Bharat Modern Fintech Aesthetic with Emil Kowalski Craft
+   ========================================================================== */
+
+.commandCenter {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  color: #f4f4f5;
+  font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
+}
+
+/* --------------------------------------------------------------------------
+   Header Bar
+   -------------------------------------------------------------------------- */
+.headerBar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  background: linear-gradient(135deg, rgba(24, 30, 46, 0.95), rgba(15, 20, 32, 0.98));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  box-shadow: 0 8px 32px -8px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+}
+
+.storeInfo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.storeLogo {
+  width: 44px;
+  height: 44px;
+  border-radius: 0.75rem;
+  background: linear-gradient(135deg, #ff7700, #ff9933);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 1.125rem;
+  color: #ffffff;
+  box-shadow: 0 4px 16px rgba(255, 119, 0, 0.35);
+  flex-shrink: 0;
+}
+
+.storeMeta h1 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.015em;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.storeMeta p {
+  font-size: 0.8125rem;
+  color: #a1a1aa;
+  margin: 0.2rem 0 0 0;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.liveBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.85rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  background: rgba(16, 185, 129, 0.12);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+.liveBadgeLocal {
+  background: rgba(59, 130, 246, 0.12);
+  color: #60a5fa;
+  border-color: rgba(59, 130, 246, 0.25);
+}
+
+.liveDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: currentColor;
+  box-shadow: 0 0 8px currentColor;
+  animation: pulseDot 2s infinite ease-in-out;
+}
+
+@keyframes pulseDot {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(0.85);
+  }
+}
+
+.voiceTriggerBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1.125rem;
+  background: linear-gradient(135deg, #ff7700, #ea580c);
+  color: #ffffff;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  border-radius: 0.625rem;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(255, 119, 0, 0.3);
+  transition: transform 0.15s cubic-bezier(0.23, 1, 0.32, 1),
+              box-shadow 0.15s cubic-bezier(0.23, 1, 0.32, 1);
+  user-select: none;
+}
+
+.voiceTriggerBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(255, 119, 0, 0.4);
+}
+
+.voiceTriggerBtn:active {
+  transform: scale(0.96);
+}
+
+/* --------------------------------------------------------------------------
+   KPI Metric Cards Grid (Top Row)
+   -------------------------------------------------------------------------- */
+.kpiGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+}
+
+@media (max-width: 1200px) {
+  .kpiGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .kpiGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.kpiCard {
+  background: rgba(18, 24, 38, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s cubic-bezier(0.23, 1, 0.32, 1),
+              border-color 0.2s ease,
+              box-shadow 0.2s ease;
+  backdrop-filter: blur(8px);
+}
+
+.kpiCard:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+}
+
+.kpiCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+}
+
+.kpiCardUdhaar::before {
+  background: linear-gradient(90deg, transparent, #ef4444, transparent);
+}
+
+.kpiCardRecovered::before {
+  background: linear-gradient(90deg, transparent, #10b981, transparent);
+}
+
+.kpiCardVoice::before {
+  background: linear-gradient(90deg, transparent, #ff7700, transparent);
+}
+
+.kpiCardInventory::before {
+  background: linear-gradient(90deg, transparent, #06b6d4, transparent);
+}
+
+.kpiHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.625rem;
+}
+
+.kpiTitle {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #a1a1aa;
+}
+
+.kpiIconWrapper {
+  width: 32px;
+  height: 32px;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.kpiValue {
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+  font-variant-numeric: tabular-nums;
+  margin: 0.25rem 0;
+}
+
+.kpiSubtext {
+  font-size: 0.75rem;
+  color: #71717a;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.positiveDelta {
+  color: #10b981;
+  font-weight: 600;
+}
+
+.warningDelta {
+  color: #f59e0b;
+  font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   Main Multi-Pane Grid (Left Feed + Right Customer Ledger)
+   -------------------------------------------------------------------------- */
+.mainLayoutGrid {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+@media (max-width: 1080px) {
+  .mainLayoutGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Realtime Event Feed (Left Column)
+   -------------------------------------------------------------------------- */
+.feedContainer {
+  background: rgba(18, 24, 38, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  backdrop-filter: blur(8px);
+}
+
+.feedHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding-bottom: 0.75rem;
+}
+
+.feedTitle {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.simulateBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.65rem;
+  border-radius: 0.5rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  background: rgba(255, 119, 0, 0.12);
+  color: #ff9933;
+  border: 1px solid rgba(255, 119, 0, 0.25);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.simulateBtn:hover {
+  background: rgba(255, 119, 0, 0.22);
+}
+
+.simulateBtn:active {
+  transform: scale(0.95);
+}
+
+.feedList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-height: 520px;
+  overflow-y: auto;
+  padding-right: 0.25rem;
+}
+
+.feedList::-webkit-scrollbar {
+  width: 5px;
+}
+
+.feedList::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 9999px;
+}
+
+.feedItem {
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 0.75rem;
+  padding: 0.875rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: transform 0.2s cubic-bezier(0.23, 1, 0.32, 1),
+              border-color 0.2s ease,
+              background-color 0.2s ease;
+  position: relative;
+}
+
+.feedItem:hover {
+  background: rgba(255, 255, 255, 0.045);
+  border-color: rgba(255, 255, 255, 0.12);
+  transform: translateX(2px);
+}
+
+/* Saffron highlight pulse for newly arrived real-time entries */
+.feedItemNew {
+  animation: saffronPulse 3.5s ease-out forwards;
+}
+
+@keyframes saffronPulse {
+  0% {
+    background-color: rgba(255, 119, 0, 0.2);
+    border-color: #ff7700;
+    box-shadow: 0 0 20px rgba(255, 119, 0, 0.45);
+    transform: scale(1.02);
+  }
+  20% {
+    background-color: rgba(255, 119, 0, 0.15);
+    border-color: rgba(255, 119, 0, 0.8);
+    transform: scale(1);
+  }
+  100% {
+    background-color: rgba(255, 255, 255, 0.025);
+    border-color: rgba(255, 255, 255, 0.06);
+    box-shadow: none;
+  }
+}
+
+.feedItemTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.typeBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.375rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.typeBadgeUdhaar {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.typeBadgeCash {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.typeBadgeRestock {
+  background: rgba(6, 182, 212, 0.15);
+  color: #38bdf8;
+  border: 1px solid rgba(6, 182, 212, 0.3);
+}
+
+.typeBadgePayment {
+  background: rgba(168, 85, 247, 0.15);
+  color: #c084fc;
+  border: 1px solid rgba(168, 85, 247, 0.3);
+}
+
+.feedAmount {
+  font-size: 0.875rem;
+  font-weight: 800;
+  color: #ffffff;
+  font-variant-numeric: tabular-nums;
+}
+
+.feedCustomer {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #e4e4e7;
+}
+
+.feedTranscript {
+  font-size: 0.75rem;
+  color: #a1a1aa;
+  font-style: italic;
+  line-height: 1.4;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 0.4rem 0.6rem;
+  border-radius: 0.375rem;
+  border-left: 2px solid #ff7700;
+}
+
+.feedTimestamp {
+  font-size: 0.6875rem;
+  color: #71717a;
+  text-align: right;
+}
+
+.emptyFeed {
+  text-align: center;
+  padding: 2.5rem 1rem;
+  color: #71717a;
+  font-size: 0.8125rem;
+}
+
+/* --------------------------------------------------------------------------
+   Customer Credit Ledger Table (Center / Right Column)
+   -------------------------------------------------------------------------- */
+.ledgerContainer {
+  background: rgba(18, 24, 38, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  backdrop-filter: blur(8px);
+}
+
+.ledgerHeader {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding-bottom: 0.875rem;
+}
+
+.ledgerTitle {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.searchBox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+  padding: 0.375rem 0.75rem;
+  width: 240px;
+  transition: border-color 0.15s ease;
+}
+
+.searchBox:focus-within {
+  border-color: #ff7700;
+}
+
+.searchBox input {
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 0.8125rem;
+  outline: none;
+  width: 100%;
+}
+
+.searchBox input::placeholder {
+  color: #71717a;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+}
+
+.customerTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+  text-align: left;
+}
+
+.customerTable th {
+  padding: 0.625rem 0.75rem;
+  color: #71717a;
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.customerTable td {
+  padding: 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  vertical-align: middle;
+}
+
+.customerTable tr:hover td {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.customerCell {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.customerAvatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.8125rem;
+  color: #ffffff;
+}
+
+.customerName {
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.customerPhone {
+  font-size: 0.6875rem;
+  color: #71717a;
+}
+
+.debtAmount {
+  font-weight: 800;
+  color: #f87171;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.875rem;
+}
+
+.tableActionBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: rgba(37, 211, 102, 0.12);
+  color: #25d366;
+  border: 1px solid rgba(37, 211, 102, 0.25);
+  cursor: pointer;
+  transition: all 0.15s cubic-bezier(0.23, 1, 0.32, 1);
+  user-select: none;
+}
+
+.tableActionBtn:hover {
+  background: rgba(37, 211, 102, 0.22);
+  transform: translateY(-1px);
+}
+
+.tableActionBtn:active {
+  transform: scale(0.96);
+}
+
+/* --------------------------------------------------------------------------
+   Inventory Low-Stock Alerts (Bottom Shelf)
+   -------------------------------------------------------------------------- */
+.shelfContainer {
+  background: rgba(18, 24, 38, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  backdrop-filter: blur(8px);
+}
+
+.shelfHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding-bottom: 0.75rem;
+}
+
+.shelfTitle {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.warningPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.stockGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.stockCard {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 0.75rem;
+  padding: 0.875rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.stockCard:hover {
+  background: rgba(255, 255, 255, 0.035);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.stockCardCritical {
+  border-left: 3px solid #ef4444;
+  background: rgba(239, 68, 68, 0.03);
+}
+
+.stockCardWarning {
+  border-left: 3px solid #f59e0b;
+}
+
+.stockCardOk {
+  border-left: 3px solid #10b981;
+}
+
+.stockInfo h3 {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+}
+
+.stockPrice {
+  font-size: 0.75rem;
+  color: #71717a;
+  margin-top: 0.15rem;
+}
+
+.stockValues {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.25rem;
+}
+
+.currentStock {
+  font-size: 0.9375rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.stockDepleted {
+  color: #ef4444;
+}
+
+.stockLow {
+  color: #f59e0b;
+}
+
+.stockNormal {
+  color: #10b981;
+}
+
+.stockActions {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.25rem;
+}
+
+.restockPill {
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.375rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.06);
+  color: #e4e4e7;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  transition: all 0.15s cubic-bezier(0.23, 1, 0.32, 1);
+  user-select: none;
+}
+
+.restockPill:hover {
+  background: rgba(255, 119, 0, 0.15);
+  border-color: #ff7700;
+  color: #ff9933;
+}
+
+.restockPill:active {
+  transform: scale(0.94);
+}

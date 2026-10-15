@@ -1,0 +1,1875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KhataVoice — Screen 3 & 4 Mockup (Ledger & Inventory)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Noto+Sans+Bengali:wght@400;600;700;800&family=Noto+Sans+Devanagari:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* -------------------------------------------------------------
+       1. DESIGN TOKENS & RESET
+       ------------------------------------------------------------- */
+    :root {
+      --bg-app: #08090C;
+      --bg-surface: #12141A;
+      --bg-card: #181B22;
+      --bg-card-hover: #20242D;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-strong: rgba(255, 255, 255, 0.16);
+      
+      --saffron-500: #FF7700;
+      --saffron-400: #FF9433;
+      --saffron-glow: rgba(255, 119, 0, 0.28);
+      --emerald-500: #10B981;
+      --emerald-400: #34D399;
+      --emerald-glow: rgba(16, 185, 129, 0.22);
+      --crimson-500: #EF4444;
+      --crimson-glow: rgba(239, 68, 68, 0.25);
+      --amber-500: #F59E0B;
+      --amber-glow: rgba(245, 158, 11, 0.25);
+      --gold-500: #FFB800;
+
+      --text-primary: #FFFFFF;
+      --text-secondary: #94A3B8;
+      --text-muted: #64748B;
+
+      --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+      --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background: #040507;
+      color: var(--text-primary);
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 24px 16px 120px 16px;
+      overflow-x: hidden;
+    }
+
+    /* -------------------------------------------------------------
+       2. SMARTPHONE HARDWARE CHASSIS (390px x 844px)
+       ------------------------------------------------------------- */
+    .viewport-stage {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    .header-bar-meta {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .header-bar-meta h1 {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #FFF 40%, var(--saffron-400) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .header-bar-meta p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    .phone-wrapper {
+      position: relative;
+    }
+
+    .phone-chassis {
+      width: 390px;
+      height: 820px;
+      background: #0B0D12;
+      border-radius: 48px;
+      padding: 12px;
+      box-shadow:
+        0 0 0 2px rgba(255, 255, 255, 0.12),
+        0 0 0 7px #1c1f28,
+        0 24px 70px rgba(0, 0, 0, 0.85),
+        0 4px 20px rgba(0, 0, 0, 0.6);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Hardware Buttons */
+    .btn-hardware {
+      position: absolute;
+      background: #1c1f28;
+      border-radius: 4px;
+    }
+    .btn-power {
+      right: -10px;
+      top: 175px;
+      width: 4px;
+      height: 52px;
+    }
+    .btn-vol-up {
+      left: -10px;
+      top: 150px;
+      width: 4px;
+      height: 48px;
+    }
+    .btn-vol-down {
+      left: -10px;
+      top: 210px;
+      width: 4px;
+      height: 48px;
+    }
+
+    .screen-frame {
+      width: 100%;
+      height: 100%;
+      background: var(--bg-app);
+      border-radius: 38px;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Dynamic Island Notch */
+    .status-bar {
+      height: 44px;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      font-weight: 600;
+      color: #FFF;
+      position: relative;
+      z-index: 50;
+      background: var(--bg-app);
+      user-select: none;
+    }
+
+    .notch-pill {
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 105px;
+      height: 26px;
+      background: #000;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      padding: 0 10px;
+    }
+    .notch-camera {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #1a1a24;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .notch-sensor {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #0f172a;
+    }
+
+    /* Top App Navigation Header */
+    .app-header {
+      padding: 10px 16px 12px 16px;
+      border-bottom: 1px solid var(--border-subtle);
+      background: rgba(18, 20, 26, 0.7);
+      backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 40;
+    }
+
+    .app-header-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .app-header-title h2 {
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+    }
+
+    .app-header-badge {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .badge-ledger {
+      background: rgba(239, 68, 68, 0.15);
+      color: #F87171;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+    .badge-stock {
+      background: rgba(245, 158, 11, 0.15);
+      color: #FBBF24;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .screen-content-area {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 14px 16px 85px 16px; /* bottom padding for sticky bottom dock */
+      scroll-behavior: smooth;
+    }
+    .screen-content-area::-webkit-scrollbar {
+      width: 4px;
+    }
+    .screen-content-area::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 4px;
+    }
+
+    /* -------------------------------------------------------------
+       3. SCREEN 3: UDHAAR CREDIT LEDGER STYLES
+       ------------------------------------------------------------- */
+    .ledger-hero-banner {
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.12) 0%, rgba(24, 27, 34, 0.9) 100%);
+      border: 1px solid rgba(239, 68, 68, 0.25);
+      border-radius: 18px;
+      padding: 14px 16px;
+      margin-bottom: 14px;
+      position: relative;
+      overflow: hidden;
+    }
+    .ledger-hero-banner::after {
+      content: '';
+      position: absolute;
+      right: -20px;
+      top: -20px;
+      width: 90px;
+      height: 90px;
+      background: radial-gradient(circle, rgba(239, 68, 68, 0.2) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-stat-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: #FDA4AF;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hero-stat-amount {
+      font-size: 28px;
+      font-weight: 900;
+      color: #FFF;
+      letter-spacing: -0.03em;
+      margin-top: 4px;
+      font-variant-numeric: tabular-nums;
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .hero-stat-sub {
+      font-size: 11px;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+
+    /* Search Input Bar */
+    .search-box-wrap {
+      position: relative;
+      margin-bottom: 12px;
+    }
+    .search-input {
+      width: 100%;
+      height: 42px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 0 14px 0 38px;
+      color: #FFF;
+      font-family: inherit;
+      font-size: 13px;
+      transition: all 0.2s var(--ease-out);
+    }
+    .search-input:focus {
+      outline: none;
+      border-color: var(--saffron-500);
+      box-shadow: 0 0 0 3px var(--saffron-glow);
+      background: #1C202A;
+    }
+    .search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      pointer-events: none;
+      font-size: 14px;
+    }
+    .search-clear-btn {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: #FFF;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      cursor: pointer;
+    }
+
+    /* Filter Chips Tray */
+    .chips-tray {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+      scrollbar-width: none;
+    }
+    .chips-tray::-webkit-scrollbar {
+      display: none;
+    }
+
+    .chip-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 11.5px;
+      font-weight: 600;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.18s var(--ease-out);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .chip-btn:hover {
+      background: var(--bg-card-hover);
+      color: #FFF;
+    }
+    .chip-btn.active {
+      background: rgba(255, 119, 0, 0.15);
+      border-color: var(--saffron-500);
+      color: var(--saffron-400);
+      font-weight: 700;
+    }
+    .chip-btn.active-alert {
+      background: rgba(239, 68, 68, 0.15);
+      border-color: var(--crimson-500);
+      color: #F87171;
+    }
+
+    /* Customer List Cards */
+    .customer-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .customer-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 13px 14px;
+      transition: all 0.2s var(--ease-out);
+      position: relative;
+    }
+    .customer-card:hover {
+      border-color: var(--border-strong);
+      background: var(--bg-card-hover);
+      transform: translateY(-1px);
+    }
+    .customer-card:active {
+      transform: scale(0.99);
+    }
+
+    .cust-top-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .cust-name {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #FFF;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .cust-phone {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 2px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .cust-debt-col {
+      text-align: right;
+    }
+    .cust-due-amount {
+      font-size: 17px;
+      font-weight: 900;
+      color: #F87171;
+      font-variant-numeric: tabular-nums;
+    }
+    .cust-due-zero {
+      color: var(--emerald-400);
+    }
+    .cust-last-activity {
+      font-size: 10.5px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* Trust Badge Component (Gold/Silver/Bronze) */
+    .trust-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 8px;
+      border-radius: 10px;
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+    .trust-gold {
+      background: rgba(255, 184, 0, 0.14);
+      border: 1px solid rgba(255, 184, 0, 0.4);
+      color: #FCD34D;
+      box-shadow: 0 0 10px rgba(255, 184, 0, 0.12);
+    }
+    .trust-silver {
+      background: rgba(148, 163, 184, 0.14);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      color: #CBD5E1;
+    }
+    .trust-bronze {
+      background: rgba(239, 68, 68, 0.14);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #FCA5A5;
+      box-shadow: 0 0 10px rgba(239, 68, 68, 0.15);
+    }
+
+    .cust-bottom-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding-top: 9px;
+      margin-top: 8px;
+    }
+
+    .cust-overdue-tag {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--amber-500);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .cust-overdue-danger {
+      color: #F87171;
+    }
+
+    .btn-whatsapp-action {
+      background: #25D366;
+      background: linear-gradient(135deg, #25D366 0%, #1EBE5D 100%);
+      color: #042512;
+      border: none;
+      border-radius: 10px;
+      padding: 6px 12px;
+      font-size: 11.5px;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      transition: all 0.15s var(--ease-out);
+      box-shadow: 0 2px 10px rgba(37, 211, 102, 0.28);
+    }
+    .btn-whatsapp-action:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(37, 211, 102, 0.4);
+    }
+    .btn-whatsapp-action:active {
+      transform: scale(0.96);
+    }
+
+    /* -------------------------------------------------------------
+       4. SCREEN 4: STORE INVENTORY MANAGEMENT STYLES
+       ------------------------------------------------------------- */
+    .inventory-hero-banner {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.12) 0%, rgba(24, 27, 34, 0.9) 100%);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      border-radius: 18px;
+      padding: 14px 16px;
+      margin-bottom: 14px;
+      position: relative;
+    }
+
+    .inv-stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .inv-mini-stat {
+      background: rgba(0, 0, 0, 0.25);
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid var(--border-subtle);
+    }
+    .inv-mini-stat-label {
+      font-size: 10px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    .inv-mini-stat-val {
+      font-size: 16px;
+      font-weight: 800;
+      color: #FFF;
+      margin-top: 2px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .inventory-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .item-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 12px 14px;
+      transition: all 0.2s var(--ease-out);
+      position: relative;
+    }
+    .item-card:hover {
+      border-color: var(--border-strong);
+      background: var(--bg-card-hover);
+    }
+    .item-card.is-critical {
+      border-color: rgba(239, 68, 68, 0.4);
+      background: rgba(239, 68, 68, 0.05);
+    }
+
+    .item-top-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+    .item-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: #FFF;
+    }
+    .item-category-pill {
+      font-size: 9.5px;
+      padding: 2px 6px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-secondary);
+      font-weight: 600;
+    }
+
+    .item-middle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 6px 0;
+    }
+
+    .stock-indicator {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .stock-count-number {
+      font-size: 15px;
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+    }
+    .stock-ok {
+      color: var(--emerald-400);
+    }
+    .stock-warn {
+      color: #FBBF24;
+    }
+    .stock-danger {
+      color: #F87171;
+    }
+
+    .stock-tag-alert {
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      animation: pulseAlert 2s infinite ease-in-out;
+    }
+    .tag-low-amber {
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: #FCD34D;
+    }
+    .tag-critical-red {
+      background: rgba(239, 68, 68, 0.18);
+      border: 1px solid rgba(239, 68, 68, 0.45);
+      color: #FCA5A5;
+    }
+
+    @keyframes pulseAlert {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.85; transform: scale(0.98); }
+    }
+
+    .item-price-unit {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .item-bottom-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding-top: 8px;
+      margin-top: 6px;
+    }
+
+    .item-cost-margin {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .restock-btn-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-quick-restock {
+      background: rgba(255, 119, 0, 0.12);
+      border: 1px solid rgba(255, 119, 0, 0.35);
+      color: var(--saffron-400);
+      font-family: inherit;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 5px 9px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.15s var(--ease-out);
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+    .btn-quick-restock:hover {
+      background: var(--saffron-500);
+      color: #000;
+      border-color: var(--saffron-500);
+      box-shadow: 0 2px 8px var(--saffron-glow);
+    }
+    .btn-quick-restock:active {
+      transform: scale(0.94);
+    }
+
+    .btn-restock-large {
+      background: linear-gradient(135deg, var(--saffron-500) 0%, #E06000 100%);
+      color: #000;
+      font-weight: 800;
+      border: none;
+      box-shadow: 0 2px 10px var(--saffron-glow);
+    }
+    .btn-restock-large:hover {
+      background: var(--saffron-400);
+      color: #000;
+    }
+
+    /* -------------------------------------------------------------
+       5. PERSISTENT KIRANA BOTTOM NAVIGATION DOCK
+       ------------------------------------------------------------- */
+    .kirana-bottom-nav {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 72px;
+      background: rgba(18, 20, 26, 0.88);
+      backdrop-filter: blur(16px);
+      border-top: 1px solid var(--border-subtle);
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      padding: 0 10px 14px 10px;
+      align-items: center;
+      z-index: 60;
+      border-bottom-left-radius: 38px;
+      border-bottom-right-radius: 38px;
+    }
+
+    .nav-tab-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      font-family: inherit;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.18s var(--ease-out);
+      position: relative;
+      height: 100%;
+    }
+    .nav-tab-btn:hover {
+      color: #FFF;
+    }
+    .nav-tab-btn.active {
+      color: var(--saffron-400);
+    }
+    .nav-tab-btn .nav-icon {
+      font-size: 19px;
+      transition: transform 0.2s var(--ease-out);
+    }
+    .nav-tab-btn.active .nav-icon {
+      transform: translateY(-2px) scale(1.1);
+    }
+
+    .nav-badge {
+      position: absolute;
+      top: 4px;
+      right: 28px;
+      background: var(--crimson-500);
+      color: #FFF;
+      font-size: 9.5px;
+      font-weight: 800;
+      min-width: 16px;
+      height: 16px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 4px;
+      box-shadow: 0 0 8px var(--crimson-glow);
+    }
+    .nav-badge-amber {
+      background: var(--amber-500);
+      box-shadow: 0 0 8px var(--amber-glow);
+    }
+
+    /* -------------------------------------------------------------
+       6. WHATSAPP RECOVERY MODAL PREVIEW (HANDSHAKE TO KV-17)
+       ------------------------------------------------------------- */
+    .whatsapp-preview-drawer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #11141B;
+      border-top: 1px solid rgba(37, 211, 102, 0.4);
+      border-top-left-radius: 28px;
+      border-top-right-radius: 28px;
+      padding: 16px 18px 24px 18px;
+      z-index: 80;
+      transform: translateY(105%);
+      transition: transform 0.35s var(--ease-drawer);
+      box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.85);
+    }
+    .whatsapp-preview-drawer.open {
+      transform: translateY(0%);
+    }
+
+    .drawer-handle {
+      width: 36px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 2px;
+      margin: 0 auto 12px auto;
+    }
+
+    .drawer-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .drawer-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: #FFF;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .drawer-close-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: #FFF;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+    }
+
+    .wa-bubble-preview {
+      background: #0D2619;
+      border: 1px solid rgba(37, 211, 102, 0.25);
+      border-radius: 14px;
+      padding: 12px;
+      font-size: 12px;
+      line-height: 1.5;
+      color: #D1FAE5;
+      margin-bottom: 14px;
+      position: relative;
+    }
+    .wa-bubble-preview strong {
+      color: #34D399;
+    }
+    .wa-bubble-preview .upi-link {
+      display: block;
+      margin-top: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: #6EE7B7;
+      word-break: break-all;
+    }
+
+    .drawer-tone-selector {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+    .drawer-tone-btn {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      padding: 6px 8px;
+      border-radius: 8px;
+      font-size: 10.5px;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.15s ease;
+    }
+    .drawer-tone-btn.active {
+      background: rgba(37, 211, 102, 0.18);
+      border-color: #25D366;
+      color: #34D399;
+    }
+
+    .drawer-actions-row {
+      display: flex;
+      gap: 8px;
+    }
+    .btn-launch-wa {
+      flex: 2;
+      background: #25D366;
+      background: linear-gradient(135deg, #25D366 0%, #1EBE5D 100%);
+      color: #042512;
+      border: none;
+      border-radius: 12px;
+      padding: 12px;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);
+    }
+    .btn-launch-wa:active {
+      transform: scale(0.97);
+    }
+    .btn-copy-wa {
+      flex: 1;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: #FFF;
+      border-radius: 12px;
+      padding: 12px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    /* -------------------------------------------------------------
+       7. TOAST NOTIFICATION
+       ------------------------------------------------------------- */
+    .prototype-toast {
+      position: absolute;
+      top: 54px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-20px);
+      background: #181B22;
+      border: 1px solid var(--emerald-500);
+      color: #FFF;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.25s var(--ease-out);
+      z-index: 99;
+      white-space: nowrap;
+    }
+    .prototype-toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* -------------------------------------------------------------
+       8. FLOATING PICKER & HARNESS AT BOTTOM OF DESKTOP VIEW
+       ------------------------------------------------------------- */
+    .floating-picker-harness {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(18, 20, 26, 0.94);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border-strong);
+      border-radius: 100px;
+      padding: 6px 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
+      z-index: 100;
+    }
+
+    .picker-label {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding-left: 6px;
+    }
+
+    .picker-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid transparent;
+      color: var(--text-secondary);
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 8px 14px;
+      border-radius: 100px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s var(--ease-out);
+    }
+    .picker-btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+      color: #FFF;
+    }
+    .picker-btn.active {
+      background: var(--saffron-500);
+      color: #000;
+      box-shadow: 0 2px 10px var(--saffron-glow);
+    }
+
+    .picker-shortcut {
+      background: rgba(0, 0, 0, 0.25);
+      border-radius: 4px;
+      padding: 1px 5px;
+      font-size: 10px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .picker-divider {
+      width: 1px;
+      height: 20px;
+      background: var(--border-subtle);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- External Header Info -->
+  <div class="header-bar-meta">
+    <h1>KhataVoice — Interactive Screen 3 & 4 Mockup</h1>
+    <p>Ticket KV-16: Screens 3 (Udhaar Credit Ledger) &amp; 4 (Real-Time Store Inventory Management)</p>
+  </div>
+
+  <div class="viewport-stage">
+    <div class="phone-wrapper">
+      <!-- Hardware Chassis -->
+      <div class="phone-chassis">
+        <!-- Physical side buttons -->
+        <div class="btn-hardware btn-power"></div>
+        <div class="btn-hardware btn-vol-up"></div>
+        <div class="btn-hardware btn-vol-down"></div>
+
+        <!-- Inner OLED Screen Frame -->
+        <div class="screen-frame">
+
+          <!-- Dynamic Island Notch & Status Bar -->
+          <div class="status-bar">
+            <span>9:41</span>
+            <div class="notch-pill">
+              <div class="notch-camera"></div>
+              <div class="notch-sensor"></div>
+            </div>
+            <div style="display:flex; align-items:center; gap:5px; font-size:11px;">
+              <span>5G</span>
+              <span>98%</span>
+            </div>
+          </div>
+
+          <!-- App Top Header -->
+          <div class="app-header">
+            <div class="app-header-title">
+              <span id="headerIcon" style="font-size: 18px;">📖</span>
+              <h2 id="headerTitle">Udhaar Ledger</h2>
+            </div>
+            <span id="headerBadge" class="app-header-badge badge-ledger">6 Debtors</span>
+          </div>
+
+          <!-- Toast Alert inside Phone -->
+          <div id="protoToast" class="prototype-toast">
+            <span id="toastIcon">✅</span>
+            <span id="toastMessage">Action completed</span>
+          </div>
+
+          <!-- =========================================================
+               VIEW 1: SCREEN 3 - UDHAAR CREDIT LEDGER
+               ========================================================= -->
+          <div id="screenLedger" class="screen-content-area" style="display: block;">
+            
+            <!-- Hero Summary Card -->
+            <div class="ledger-hero-banner">
+              <div class="hero-stat-label">
+                <span>🔴 TOTAL OUTSTANDING UDHAAR</span>
+              </div>
+              <div class="hero-stat-amount">
+                <span id="totalUdhaarDisplay">₹3,010</span>
+                <span style="font-size: 13px; font-weight: 600; color: #FDA4AF;">stuck capital</span>
+              </div>
+              <div class="hero-stat-sub">
+                Recovered <strong style="color:var(--emerald-400);">+₹2,450</strong> this week across 6 registered accounts
+              </div>
+            </div>
+
+            <!-- Instant Search Input -->
+            <div class="search-box-wrap">
+              <span class="search-icon">🔍</span>
+              <input type="text" id="custSearchInput" class="search-input" placeholder="Search customer name or phone..." oninput="handleCustomerSearch()">
+              <button id="custClearBtn" class="search-clear-btn" onclick="clearCustomerSearch()">✕</button>
+            </div>
+
+            <!-- Trust Tier Filter Chips -->
+            <div class="chips-tray">
+              <button class="chip-btn active" onclick="filterCustomers('all', this)">All Accounts (6)</button>
+              <button class="chip-btn" onclick="filterCustomers('overdue', this)">⚠️ Overdue > 14d (3)</button>
+              <button class="chip-btn" onclick="filterCustomers('gold', this)">🛡️ Gold (85+)</button>
+              <button class="chip-btn" onclick="filterCustomers('silver', this)">🛡️ Silver (65-84)</button>
+              <button class="chip-btn" onclick="filterCustomers('bronze', this)">⚠️ Bronze (&lt;65)</button>
+            </div>
+
+            <!-- Dynamic Customer List -->
+            <div id="customerListContainer" class="customer-list">
+              <!-- Rendered via JavaScript -->
+            </div>
+
+          </div>
+
+
+          <!-- =========================================================
+               VIEW 2: SCREEN 4 - STORE INVENTORY MANAGEMENT
+               ========================================================= -->
+          <div id="screenInventory" class="screen-content-area" style="display: none;">
+            
+            <!-- Inventory Hero Summary Card -->
+            <div class="inventory-hero-banner">
+              <div style="font-size:11px; font-weight:700; color:#FCD34D; text-transform:uppercase; letter-spacing:0.04em;">
+                📦 Store Stock Valuation
+              </div>
+              <div style="font-size:24px; font-weight:900; color:#FFF; margin-top:3px; font-variant-numeric:tabular-nums;">
+                ₹48,250 <span style="font-size:12px; font-weight:600; color:var(--text-secondary);">catalog value</span>
+              </div>
+              
+              <div class="inv-stats-grid">
+                <div class="inv-mini-stat">
+                  <div class="inv-mini-stat-label">Total SKUs</div>
+                  <div id="invTotalSkus" class="inv-mini-stat-val">9 Active</div>
+                </div>
+                <div class="inv-mini-stat" style="border-color: rgba(245, 158, 11, 0.4);">
+                  <div class="inv-mini-stat-label" style="color:#FBBF24;">Low Stock Alerts</div>
+                  <div id="invLowStockStat" class="inv-mini-stat-val" style="color:#FBBF24;">3 Items</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Instant Search Input -->
+            <div class="search-box-wrap">
+              <span class="search-icon">🔍</span>
+              <input type="text" id="invSearchInput" class="search-input" placeholder="Search item name or category..." oninput="handleInventorySearch()">
+              <button id="invClearBtn" class="search-clear-btn" onclick="clearInventorySearch()">✕</button>
+            </div>
+
+            <!-- Category Filter Chips -->
+            <div class="chips-tray">
+              <button class="chip-btn active" onclick="filterInventory('all', this)">All Items (9)</button>
+              <button class="chip-btn active-alert" onclick="filterInventory('low_stock', this)">⚠️ Low Stock (3)</button>
+              <button class="chip-btn" onclick="filterInventory('Edible Oils', this)">Edible Oils</button>
+              <button class="chip-btn" onclick="filterInventory('Grains & Dal', this)">Grains &amp; Dal</button>
+              <button class="chip-btn" onclick="filterInventory('Snacks', this)">Snacks</button>
+              <button class="chip-btn" onclick="filterInventory('Personal Care', this)">Personal Care</button>
+            </div>
+
+            <!-- Dynamic Inventory List -->
+            <div id="inventoryListContainer" class="inventory-list">
+              <!-- Rendered via JavaScript -->
+            </div>
+
+          </div>
+
+          <!-- =========================================================
+               WHATSAPP RECOVERY MODAL PREVIEW (DRAWER)
+               ========================================================= -->
+          <div id="waDrawer" class="whatsapp-preview-drawer">
+            <div class="drawer-handle"></div>
+            
+            <div class="drawer-header">
+              <div class="drawer-title">
+                <span style="color:#25D366; font-size:16px;">💬</span>
+                <span id="waDrawerCustName">Shyam Sundar Das</span>
+              </div>
+              <button class="drawer-close-btn" onclick="closeWhatsAppDrawer()">✕</button>
+            </div>
+
+            <!-- Cultural Tone Selector -->
+            <div class="drawer-tone-selector">
+              <button class="drawer-tone-btn active" onclick="switchTone('polite', this)">🌸 Polite Gentle</button>
+              <button class="drawer-tone-btn" onclick="switchTone('friendly', this)">🤝 Friendly</button>
+              <button class="drawer-tone-btn" onclick="switchTone('firm', this)">⚠️ Firm Overdue</button>
+            </div>
+
+            <!-- WhatsApp Message Bubble Preview -->
+            <div class="wa-bubble-preview">
+              <div id="waMessageText">
+                নমস্কার <strong>Shyam Sundar Das</strong> বাবু, Maa Tara General Store এ আপনার ₹420 টাকার হিসাব বাকি আছে। সময় মতো ফোনপে বা গুগলপে তে ক্লিয়ার করুন।
+              </div>
+              <div class="upi-link" id="waUpiLink">
+                upi://pay?pa=maatarastore@okaxis&am=420&pn=MaaTaraStore
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="drawer-actions-row">
+              <button class="btn-launch-wa" onclick="launchWhatsAppIntent()">
+                <span>🚀 Send via WhatsApp</span>
+              </button>
+              <button class="btn-copy-wa" onclick="copyWhatsAppMessage()">
+                <span>📋 Copy</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- =========================================================
+               STICKY KIRANA BOTTOM NAVIGATION DOCK
+               ========================================================= -->
+          <div class="kirana-bottom-nav">
+            <button id="navHomeBtn" class="nav-tab-btn" onclick="handleNavTab('home')">
+              <span class="nav-icon">🎙️</span>
+              <span>Voice Home</span>
+            </button>
+
+            <button id="navLedgerBtn" class="nav-tab-btn active" onclick="handleNavTab('ledger')">
+              <span class="nav-icon">📖</span>
+              <span>Udhaar Ledger</span>
+              <span id="navLedgerBadge" class="nav-badge">6</span>
+            </button>
+
+            <button id="navStockBtn" class="nav-tab-btn" onclick="handleNavTab('stock')">
+              <span class="nav-icon">📦</span>
+              <span>Stock Inventory</span>
+              <span id="navStockBadge" class="nav-badge nav-badge-amber">3</span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       FLOATING SWITCHER & CONTROL BAR
+       ========================================================= -->
+  <div class="floating-picker-harness">
+    <span class="picker-label">MOCKUP SCREEN:</span>
+    <button id="pickerLedgerBtn" class="picker-btn active" onclick="switchMockupScreen('ledger')">
+      <span>📖 Screen 3: Ledger</span>
+      <span class="picker-shortcut">1</span>
+    </button>
+    <button id="pickerStockBtn" class="picker-btn" onclick="switchMockupScreen('inventory')">
+      <span>📦 Screen 4: Inventory</span>
+      <span class="picker-shortcut">2</span>
+    </button>
+    
+    <div class="picker-divider"></div>
+
+    <button class="picker-btn" onclick="resetMockupData()">
+      <span>🔄 Reset Data</span>
+      <span class="picker-shortcut">R</span>
+    </button>
+  </div>
+
+
+  <!-- =========================================================
+       INTERACTIVE JAVASCRIPT LOGIC
+       ========================================================= -->
+  <script>
+    // --- Audio Feedback Synthesizer (Web Audio API) ---
+    const AudioEngine = {
+      ctx: null,
+      init() {
+        if (!this.ctx) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          this.ctx = new AudioContext();
+        }
+      },
+      playClick() {
+        try {
+          this.init();
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(440, this.ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(880, this.ctx.currentTime + 0.05);
+          gain.gain.setValueAtTime(0.08, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.05);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(this.ctx.currentTime + 0.05);
+        } catch(e) {}
+      },
+      playRestock() {
+        try {
+          this.init();
+          const now = this.ctx.currentTime;
+          [523.25, 659.25, 783.99].forEach((freq, idx) => {
+            const osc = this.ctx.createOscillator();
+            const gain = this.ctx.createGain();
+            osc.frequency.setValueAtTime(freq, now + idx * 0.04);
+            gain.gain.setValueAtTime(0.06, now + idx * 0.04);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.04 + 0.12);
+            osc.connect(gain);
+            gain.connect(this.ctx.destination);
+            osc.start(now + idx * 0.04);
+            osc.stop(now + idx * 0.04 + 0.12);
+          });
+        } catch(e) {}
+      },
+      playWhatsAppChirp() {
+        try {
+          this.init();
+          const now = this.ctx.currentTime;
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(880, now);
+          osc.frequency.exponentialRampToValueAtTime(1760, now + 0.08);
+          gain.gain.setValueAtTime(0.09, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.1);
+        } catch(e) {}
+      }
+    };
+
+    // --- SEED DATA ---
+    const INITIAL_CUSTOMERS = [
+      {
+        id: 'cust-1',
+        name: 'Shyam Sundar Das',
+        phone: '+91 98311 54321',
+        current_balance: 420,
+        trust_score: 86,
+        trust_badge: 'GOLD',
+        days_overdue: 2,
+        last_transaction: '2 hours ago'
+      },
+      {
+        id: 'cust-2',
+        name: 'Rohit Gupta',
+        phone: '+91 98302 23344',
+        current_balance: 1250,
+        trust_score: 72,
+        trust_badge: 'SILVER',
+        days_overdue: 16,
+        last_transaction: 'Yesterday'
+      },
+      {
+        id: 'cust-3',
+        name: 'Sunita Devi',
+        phone: '+91 98300 12345',
+        current_balance: 310,
+        trust_score: 88,
+        trust_badge: 'GOLD',
+        days_overdue: 5,
+        last_transaction: '3 days ago'
+      },
+      {
+        id: 'cust-4',
+        name: 'Amit Das',
+        phone: '+91 98322 98765',
+        current_balance: 0,
+        trust_score: 92,
+        trust_badge: 'GOLD',
+        days_overdue: 0,
+        last_transaction: '4 days ago'
+      },
+      {
+        id: 'cust-5',
+        name: 'Rajesh Mondal',
+        phone: '+91 98305 56677',
+        current_balance: 850,
+        trust_score: 58,
+        trust_badge: 'BRONZE',
+        days_overdue: 34,
+        last_transaction: '12 days ago'
+      },
+      {
+        id: 'cust-6',
+        name: 'Priya Sen',
+        phone: '+91 98306 67788',
+        current_balance: 180,
+        trust_score: 84,
+        trust_badge: 'SILVER',
+        days_overdue: 18,
+        last_transaction: '18 days ago'
+      }
+    ];
+
+    const INITIAL_INVENTORY = [
+      {
+        id: 'inv-1',
+        name: 'Fortune Mustard Oil 1L',
+        category: 'Edible Oils',
+        current_stock: 4,
+        low_stock_threshold: 5,
+        unit: 'bottles',
+        unit_price: 130,
+        cost_price: 115
+      },
+      {
+        id: 'inv-2',
+        name: 'Sugar 1kg (Loose)',
+        category: 'Grains & Dal',
+        current_stock: 3,
+        low_stock_threshold: 10,
+        unit: 'kg',
+        unit_price: 44,
+        cost_price: 38
+      },
+      {
+        id: 'inv-3',
+        name: 'Tata Salt 1kg',
+        category: 'Grains & Dal',
+        current_stock: 2,
+        low_stock_threshold: 8,
+        unit: 'packets',
+        unit_price: 28,
+        cost_price: 22
+      },
+      {
+        id: 'inv-4',
+        name: 'Aashirvaad Chakki Atta 5kg',
+        category: 'Grains & Dal',
+        current_stock: 12,
+        low_stock_threshold: 4,
+        unit: 'bags',
+        unit_price: 220,
+        cost_price: 195
+      },
+      {
+        id: 'inv-5',
+        name: 'Parle-G 80g Biscuits',
+        category: 'Snacks',
+        current_stock: 40,
+        low_stock_threshold: 15,
+        unit: 'packets',
+        unit_price: 10,
+        cost_price: 8
+      },
+      {
+        id: 'inv-6',
+        name: 'Maggi 2-Minute Noodles 70g',
+        category: 'Snacks',
+        current_stock: 30,
+        low_stock_threshold: 10,
+        unit: 'packets',
+        unit_price: 14,
+        cost_price: 12
+      },
+      {
+        id: 'inv-7',
+        name: 'Masoor Dal 1kg',
+        category: 'Grains & Dal',
+        current_stock: 15,
+        low_stock_threshold: 5,
+        unit: 'kg',
+        unit_price: 110,
+        cost_price: 95
+      },
+      {
+        id: 'inv-8',
+        name: 'Amul Taaza Milk 500ml',
+        category: 'Personal Care',
+        current_stock: 18,
+        low_stock_threshold: 6,
+        unit: 'packets',
+        unit_price: 27,
+        cost_price: 25
+      },
+      {
+        id: 'inv-9',
+        name: 'Dettol Soap 75g',
+        category: 'Personal Care',
+        current_stock: -1, /* Negative Stock scenario */
+        low_stock_threshold: 5,
+        unit: 'bars',
+        unit_price: 38,
+        cost_price: 32
+      }
+    ];
+
+    // State
+    let customers = JSON.parse(JSON.stringify(INITIAL_CUSTOMERS));
+    let inventory = JSON.parse(JSON.stringify(INITIAL_INVENTORY));
+    let currentCustomerFilter = 'all';
+    let currentInventoryFilter = 'all';
+    let selectedCustomerForReminder = null;
+    let selectedTone = 'polite';
+
+    // --- Toast helper ---
+    function showToast(message, icon = '✅') {
+      const toast = document.getElementById('protoToast');
+      document.getElementById('toastMessage').textContent = message;
+      document.getElementById('toastIcon').textContent = icon;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2500);
+    }
+
+    // --- SCREEN SWITCHER ---
+    function switchMockupScreen(screen) {
+      AudioEngine.playClick();
+      const screenLedger = document.getElementById('screenLedger');
+      const screenInventory = document.getElementById('screenInventory');
+      const headerTitle = document.getElementById('headerTitle');
+      const headerIcon = document.getElementById('headerIcon');
+      const headerBadge = document.getElementById('headerBadge');
+
+      const navLedgerBtn = document.getElementById('navLedgerBtn');
+      const navStockBtn = document.getElementById('navStockBtn');
+      const pickerLedgerBtn = document.getElementById('pickerLedgerBtn');
+      const pickerStockBtn = document.getElementById('pickerStockBtn');
+
+      if (screen === 'ledger') {
+        screenLedger.style.display = 'block';
+        screenInventory.style.display = 'none';
+        headerTitle.textContent = 'Udhaar Ledger';
+        headerIcon.textContent = '📖';
+        headerBadge.className = 'app-header-badge badge-ledger';
+        headerBadge.textContent = `${customers.length} Accounts`;
+
+        navLedgerBtn.classList.add('active');
+        navStockBtn.classList.remove('active');
+        pickerLedgerBtn.classList.add('active');
+        pickerStockBtn.classList.remove('active');
+      } else {
+        screenLedger.style.display = 'none';
+        screenInventory.style.display = 'block';
+        headerTitle.textContent = 'Store Inventory';
+        headerIcon.textContent = '📦';
+        headerBadge.className = 'app-header-badge badge-stock';
+        
+        const lowCount = inventory.filter(i => i.current_stock <= i.low_stock_threshold).length;
+        headerBadge.textContent = `${lowCount} Low Stock`;
+
+        navLedgerBtn.classList.remove('active');
+        navStockBtn.classList.add('active');
+        pickerLedgerBtn.classList.remove('active');
+        pickerStockBtn.classList.add('active');
+      }
+      closeWhatsAppDrawer();
+    }
+
+    function handleNavTab(tab) {
+      if (tab === 'home') {
+        showToast('Returning to Spoken Voice Home...', '🎙️');
+      } else if (tab === 'ledger') {
+        switchMockupScreen('ledger');
+      } else if (tab === 'stock') {
+        switchMockupScreen('inventory');
+      }
+    }
+
+    // --- RENDER CUSTOMER LIST (SCREEN 3) ---
+    function renderCustomerList() {
+      const container = document.getElementById('customerListContainer');
+      const query = document.getElementById('custSearchInput').value.trim().toLowerCase();
+
+      let filtered = customers.filter(c => {
+        const matchesQuery = c.name.toLowerCase().includes(query) || c.phone.includes(query);
+        if (!matchesQuery) return false;
+
+        if (currentCustomerFilter === 'all') return true;
+        if (currentCustomerFilter === 'overdue') return c.days_overdue >= 14 && c.current_balance > 0;
+        if (currentCustomerFilter === 'gold') return c.trust_badge === 'GOLD';
+        if (currentCustomerFilter === 'silver') return c.trust_badge === 'SILVER';
+        if (currentCustomerFilter === 'bronze') return c.trust_badge === 'BRONZE';
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div style="text-align:center; padding:32px 16px; color:var(--text-muted);">
+            <div style="font-size:28px; margin-bottom:8px;">🔍</div>
+            <p style="font-weight:700; color:#FFF; font-size:13px;">No customers found</p>
+            <p style="font-size:11px; margin-top:2px;">Try adjusting your search query or filter chips.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(c => {
+        const badgeClass = c.trust_badge === 'GOLD' ? 'trust-gold' : c.trust_badge === 'SILVER' ? 'trust-silver' : 'trust-bronze';
+        const badgeIcon = c.trust_badge === 'GOLD' ? '🛡️' : c.trust_badge === 'SILVER' ? '🥈' : '⚠️';
+        const isDebt = c.current_balance > 0;
+
+        return `
+          <div class="customer-card">
+            <div class="cust-top-row">
+              <div>
+                <div class="cust-name">
+                  ${c.name}
+                  <span class="trust-badge ${badgeClass}">
+                    ${badgeIcon} ${c.trust_badge} ${c.trust_score}
+                  </span>
+                </div>
+                <div class="cust-phone">${c.phone}</div>
+              </div>
+              <div class="cust-debt-col">
+                <div class="cust-due-amount ${isDebt ? '' : 'cust-due-zero'}">
+                  ${isDebt ? '₹' + c.current_balance : '₹0 Settled'}
+                </div>
+                <div class="cust-last-activity">${c.last_transaction}</div>
+              </div>
+            </div>
+
+            <div class="cust-bottom-actions">
+              <div class="cust-overdue-tag ${c.days_overdue >= 14 ? 'cust-overdue-danger' : ''}">
+                ${isDebt ? `⏳ ${c.days_overdue} days pending` : '✨ Clean ledger balance'}
+              </div>
+
+              ${isDebt ? `
+                <button class="btn-whatsapp-action" onclick="openWhatsAppDrawer('${c.id}')">
+                  <span>💬 Send Reminder</span>
+                </button>
+              ` : `
+                <span style="font-size:11px; color:var(--emerald-400); font-weight:700;">✅ Paid in Full</span>
+              `}
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // Update total outstanding header
+      const totalDebt = customers.reduce((acc, c) => acc + c.current_balance, 0);
+      document.getElementById('totalUdhaarDisplay').textContent = '₹' + totalDebt.toLocaleString();
+    }
+
+    function handleCustomerSearch() {
+      const input = document.getElementById('custSearchInput');
+      document.getElementById('custClearBtn').style.display = input.value ? 'flex' : 'none';
+      renderCustomerList();
+    }
+
+    function clearCustomerSearch() {
+      document.getElementById('custSearchInput').value = '';
+      document.getElementById('custClearBtn').style.display = 'none';
+      renderCustomerList();
+    }
+
+    function filterCustomers(filterType, btn) {
+      AudioEngine.playClick();
+      currentCustomerFilter = filterType;
+      document.querySelectorAll('#screenLedger .chip-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderCustomerList();
+    }
+
+
+    // --- RENDER INVENTORY LIST (SCREEN 4) ---
+    function renderInventoryList() {
+      const container = document.getElementById('inventoryListContainer');
+      const query = document.getElementById('invSearchInput').value.trim().toLowerCase();
+
+      let filtered = inventory.filter(item => {
+        const matchesQuery = item.name.toLowerCase().includes(query) || item.category.toLowerCase().includes(query);
+        if (!matchesQuery) return false;
+
+        if (currentInventoryFilter === 'all') return true;
+        if (currentInventoryFilter === 'low_stock') return item.current_stock <= item.low_stock_threshold;
+        return item.category === currentInventoryFilter;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div style="text-align:center; padding:32px 16px; color:var(--text-muted);">
+            <div style="font-size:28px; margin-bottom:8px;">📦</div>
+            <p style="font-weight:700; color:#FFF; font-size:13px;">No inventory items match</p>
+            <p style="font-size:11px; margin-top:2px;">Try another category filter or search keyword.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(item => {
+        const isDepleted = item.current_stock <= 0;
+        const isLow = item.current_stock <= item.low_stock_threshold && !isDepleted;
+
+        return `
+          <div class="item-card ${isDepleted ? 'is-critical' : ''}">
+            <div class="item-top-row">
+              <span class="item-name">${item.name}</span>
+              <span class="item-category-pill">${item.category}</span>
+            </div>
+
+            <div class="item-middle-row">
+              <div class="stock-indicator">
+                <span class="stock-count-number ${isDepleted ? 'stock-danger' : isLow ? 'stock-warn' : 'stock-ok'}">
+                  ${item.current_stock} ${item.unit}
+                </span>
+
+                ${isDepleted ? `
+                  <span class="stock-tag-alert tag-critical-red">
+                    ⚠️ Depleted (${item.current_stock})
+                  </span>
+                ` : isLow ? `
+                  <span class="stock-tag-alert tag-low-amber">
+                    ⚠️ Low Stock (${item.current_stock})
+                  </span>
+                ` : `
+                  <span style="font-size:10.5px; color:var(--emerald-400); font-weight:700;">
+                    ✓ In Stock
+                  </span>
+                `}
+              </div>
+
+              <div class="item-price-unit">
+                ₹${item.unit_price} <span style="font-size:10px; color:var(--text-muted);">/ ${item.unit.replace(/s$/, '')}</span>
+              </div>
+            </div>
+
+            <div class="item-bottom-actions">
+              <div class="item-cost-margin">
+                Cost: ₹${item.cost_price} · Margin: <strong style="color:var(--emerald-400);">+₹${item.unit_price - item.cost_price}</strong>
+              </div>
+
+              <div class="restock-btn-group">
+                <button class="btn-quick-restock" onclick="quickRestock('${item.id}', 5)">
+                  +5
+                </button>
+                <button class="btn-quick-restock ${isDepleted ? 'btn-restock-large' : ''}" onclick="quickRestock('${item.id}', 10)">
+                  +10 Restock
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // Update Header stats
+      const lowCount = inventory.filter(i => i.current_stock <= i.low_stock_threshold).length;
+      document.getElementById('invLowStockStat').textContent = `${lowCount} Items`;
+      document.getElementById('navStockBadge').textContent = lowCount;
+    }
+
+    function handleInventorySearch() {
+      const input = document.getElementById('invSearchInput');
+      document.getElementById('invClearBtn').style.display = input.value ? 'flex' : 'none';
+      renderInventoryList();
+    }
+
+    function clearInventorySearch() {
+      document.getElementById('invSearchInput').value = '';
+      document.getElementById('invClearBtn').style.display = 'none';
+      renderInventoryList();
+    }
+
+    function filterInventory(category, btn) {
+      AudioEngine.playClick();
+      currentInventoryFilter = category;
+      document.querySelectorAll('#screenInventory .chip-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderInventoryList();
+    }
+
+    // --- QUICK RESTOCK ACTION (SCENARIO 2) ---
+    function quickRestock(itemId, qty) {
+      AudioEngine.playRestock();
+      const item = inventory.find(i => i.id === itemId);
+      if (!item) return;
+
+      item.current_stock += qty;
+      renderInventoryList();
+      showToast(`Restocked +${qty} ${item.name}! (${item.current_stock} remaining)`, '📦');
+    }
+
+
+    // --- WHATSAPP DRAWER HANDSHAKE (SCENARIO 1 & KV-17) ---
+    function openWhatsAppDrawer(custId) {
+      AudioEngine.playWhatsAppChirp();
+      const cust = customers.find(c => c.id === custId);
+      if (!cust) return;
+
+      selectedCustomerForReminder = cust;
+      document.getElementById('waDrawerCustName').textContent = cust.name;
+      updateWhatsAppMessage();
+
+      document.getElementById('waDrawer').classList.add('open');
+    }
+
+    function closeWhatsAppDrawer() {
+      document.getElementById('waDrawer').classList.remove('open');
+    }
+
+    function switchTone(tone, btn) {
+      AudioEngine.playClick();
+      selectedTone = tone;
+      document.querySelectorAll('.drawer-tone-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      updateWhatsAppMessage();
+    }
+
+    function updateWhatsAppMessage() {
+      if (!selectedCustomerForReminder) return;
+      const c = selectedCustomerForReminder;
+      const msgElem = document.getElementById('waMessageText');
+      const upiElem = document.getElementById('waUpiLink');
+
+      const upiUrl = `upi://pay?pa=maatarastore@okaxis&am=${c.current_balance}&pn=MaaTaraStore`;
+      upiElem.textContent = upiUrl;
+
+      if (selectedTone === 'polite') {
+        msgElem.innerHTML = `নমস্কার <strong>${c.name}</strong> বাবু, Maa Tara General Store এ আপনার <strong>₹${c.current_balance}</strong> টাকার হিসাব বাকি আছে। সময় মতো PhonePe বা GPay তে ক্লিয়ার করুন।`;
+      } else if (selectedTone === 'friendly') {
+        msgElem.innerHTML = `হ্যালো <strong>${c.name}</strong>, কেমন আছেন? আপনার স্টোর খাতা হিসাব <strong>₹${c.current_balance}</strong> টাকা বাকি আছে। সুবিধামতো ইউপিআই-তে পাঠিয়ে দেবেন:`;
+      } else {
+        msgElem.innerHTML = `জরুরী নোটিশ: <strong>${c.name}</strong>, Maa Tara Store এ আপনার <strong>₹${c.current_balance}</strong> টাকা বাকি ${c.days_overdue} দিন পার হয়ে গেছে। অনুগ্রহ করে আজই নিচের লিংকে ক্লিয়ার করুন:`;
+      }
+    }
+
+    function launchWhatsAppIntent() {
+      AudioEngine.playClick();
+      if (!selectedCustomerForReminder) return;
+      const c = selectedCustomerForReminder;
+      const text = document.getElementById('waMessageText').innerText + '\n' + document.getElementById('waUpiLink').innerText;
+      const waUrl = `https://wa.me/${c.phone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(text)}`;
+      
+      showToast(`Launching WhatsApp for ${c.name}...`, '🚀');
+      setTimeout(() => {
+        window.open(waUrl, '_blank');
+        closeWhatsAppDrawer();
+      }, 400);
+    }
+
+    function copyWhatsAppMessage() {
+      AudioEngine.playClick();
+      const text = document.getElementById('waMessageText').innerText + '\n' + document.getElementById('waUpiLink').innerText;
+      navigator.clipboard.writeText(text);
+      showToast('Copied to clipboard with UPI link!', '📋');
+    }
+
+    // --- RESET DATA ---
+    function resetMockupData() {
+      AudioEngine.playClick();
+      customers = JSON.parse(JSON.stringify(INITIAL_CUSTOMERS));
+      inventory = JSON.parse(JSON.stringify(INITIAL_INVENTORY));
+      renderCustomerList();
+      renderInventoryList();
+      showToast('Mockup data reset to initial seed values', '🔄');
+    }
+
+    // --- KEYBOARD SHORTCUTS ---
+    window.addEventListener('keydown', (e) => {
+      if (e.key === '1') switchMockupScreen('ledger');
+      if (e.key === '2') switchMockupScreen('inventory');
+      if (e.key === 'r' || e.key === 'R') resetMockupData();
+      if (e.key === 'Escape') closeWhatsAppDrawer();
+    });
+
+    // --- INITIALIZE ON LOAD ---
+    window.addEventListener('DOMContentLoaded', () => {
+      renderCustomerList();
+      renderInventoryList();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,486 @@
+/* ==========================================================================
+   Screen 7: Judge Economics & Working Capital ROI Simulator Styles
+   Bharat Modern Fintech Aesthetic with high-contrast tokens
+   ========================================================================== */
+
+.judgeContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background-color: #090D16;
+  color: #F8FAFC;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 1.25rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 119, 0, 0.3) rgba(15, 23, 42, 0.6);
+}
+
+.judgeContainer::-webkit-scrollbar {
+  width: 6px;
+}
+
+.judgeContainer::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.6);
+}
+
+.judgeContainer::-webkit-scrollbar-thumb {
+  background: rgba(255, 119, 0, 0.3);
+  border-radius: 4px;
+}
+
+/* Header Banner */
+.headerBanner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background: linear-gradient(135deg, rgba(255, 119, 0, 0.12) 0%, rgba(16, 185, 129, 0.08) 100%);
+  border: 1px solid rgba(255, 119, 0, 0.25);
+  border-radius: 14px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+  backdrop-filter: blur(8px);
+}
+
+.headerInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.headerTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.headerTitle {
+  font-size: 1.125rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  letter-spacing: -0.02em;
+}
+
+.judgeBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  background: rgba(255, 184, 0, 0.15);
+  border: 1px solid rgba(255, 184, 0, 0.4);
+  color: #FBBF24;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+}
+
+.headerSubtext {
+  font-size: 0.8125rem;
+  color: #94A3B8;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.rubricPill {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.125rem 0.5rem;
+  border-radius: 6px;
+  font-size: 0.6875rem;
+  color: #CBD5E1;
+  font-weight: 600;
+}
+
+.backButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #FFFFFF;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+  user-select: none;
+}
+
+.backButton:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+.backButton:active {
+  transform: scale(0.97);
+}
+
+/* Main Layout Grid */
+.mainLayout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .mainLayout {
+    grid-template-columns: 1.15fr 0.85fr;
+  }
+}
+
+/* Sliders Control Card */
+.card {
+  background: #121826;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding-bottom: 0.875rem;
+}
+
+.cardTitle {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cardTag {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+  background: rgba(255, 119, 0, 0.15);
+  color: #FF7700;
+  border: 1px solid rgba(255, 119, 0, 0.3);
+}
+
+/* Slider Element Group */
+.sliderGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.sliderLabelRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sliderLabel {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #CBD5E1;
+}
+
+.sliderValue {
+  font-size: 0.9375rem;
+  font-weight: 800;
+  color: #FF7700;
+  font-variant-numeric: tabular-nums;
+  background: rgba(255, 119, 0, 0.1);
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 119, 0, 0.25);
+}
+
+.sliderDescription {
+  font-size: 0.6875rem;
+  color: #64748B;
+}
+
+/* Custom HTML5 Range Slider Input */
+.rangeInput {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  background: #1E293B;
+  border-radius: 9999px;
+  outline: none;
+  margin: 0.5rem 0;
+  cursor: pointer;
+}
+
+.rangeInput::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #FF7700;
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 0 10px rgba(255, 119, 0, 0.6);
+  cursor: grab;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.rangeInput::-webkit-slider-thumb:active {
+  cursor: grabbing;
+  transform: scale(1.15);
+  box-shadow: 0 0 16px rgba(255, 119, 0, 0.9);
+}
+
+.rangeInput::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #FF7700;
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 0 10px rgba(255, 119, 0, 0.6);
+  cursor: grab;
+}
+
+/* 4 KPI Summary Grid */
+.kpiGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.kpiCard {
+  background: rgba(18, 24, 38, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 1.125rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: all 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.kpiCard:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 119, 0, 0.3);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.kpiLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #94A3B8;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.kpiValue {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  color: #FFFFFF;
+}
+
+.kpiSubtext {
+  font-size: 0.6875rem;
+  color: #64748B;
+  line-height: 1.4;
+}
+
+.kpiFormula {
+  font-size: 0.6875rem;
+  font-family: monospace;
+  color: #F59E0B;
+  background: rgba(245, 158, 11, 0.08);
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  border: 1px solid rgba(245, 158, 11, 0.2);
+  margin-top: 0.25rem;
+}
+
+/* Highlight Gauges */
+.emeraldGlow {
+  border-color: rgba(16, 185, 129, 0.35) !important;
+  background: linear-gradient(180deg, rgba(16, 185, 129, 0.08) 0%, rgba(18, 24, 38, 0.8) 100%) !important;
+}
+
+.saffronGlow {
+  border-color: rgba(255, 119, 0, 0.35) !important;
+  background: linear-gradient(180deg, rgba(255, 119, 0, 0.08) 0%, rgba(18, 24, 38, 0.8) 100%) !important;
+}
+
+/* Merchant Payback ROI Spotlight Card */
+.roiSpotlight {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(18, 24, 38, 0.95) 100%);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  border-radius: 16px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.roiMultiplierBadge {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #10B981;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.roiBreakdownGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 0.75rem;
+}
+
+.roiMetricBox {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.roiBoxTitle {
+  font-size: 0.6875rem;
+  color: #94A3B8;
+  font-weight: 600;
+}
+
+.roiBoxValue {
+  font-size: 1.125rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Rubric Breakdown Tab Bar */
+.rubricSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.tabsBar {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.25rem;
+  scrollbar-width: none;
+}
+
+.tabButton {
+  padding: 0.5rem 0.875rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+  color: #94A3B8;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.tabButtonActive {
+  background: rgba(255, 119, 0, 0.18);
+  border-color: #FF7700;
+  color: #FF7700;
+}
+
+.tabContent {
+  background: #121826;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.rubricPillarTitle {
+  font-size: 0.9375rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.rubricPointsList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.8125rem;
+  color: #CBD5E1;
+  line-height: 1.5;
+}
+
+.rubricItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.checkIcon {
+  color: #10B981;
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+}
+
+/* Architecture Inspector Diagram */
+.pipelineBox {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.pipelineStep {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.625rem 0.875rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  font-size: 0.75rem;
+}
+
+.stepName {
+  font-weight: 700;
+  color: #E2E8F0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.stepLatency {
+  font-family: monospace;
+  font-size: 0.6875rem;
+  color: #10B981;
+  background: rgba(16, 185, 129, 0.1);
+  padding: 0.125rem 0.375rem;
+  border-radius: 4px;
+}

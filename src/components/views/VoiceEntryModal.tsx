@@ -312,8 +312,11 @@ export function VoiceEntryModal({ merchantId = 'm_kolkata_kirana_001' }: VoiceEn
   const toggleListening = useCallback(async () => {
     if (voiceState === 'listening') {
       cleanupHardware();
-      if (transcript.trim()) {
-        parseSpokenText(transcript);
+      const storeState = useAppStore.getState();
+      const spokenText = (storeState.transcript || storeState.interimTranscript || transcript || interimTranscript).trim();
+      if (spokenText) {
+        setTranscript(spokenText, false);
+        parseSpokenText(spokenText);
       } else {
         setVoiceState('idle');
       }
@@ -348,16 +351,29 @@ export function VoiceEntryModal({ merchantId = 'm_kolkata_kirana_001' }: VoiceEn
             setTranscript(finalTranscript, false);
           },
           onEnd: () => {
-            const currentStoreTranscript = useAppStore.getState().transcript;
-            if (currentStoreTranscript && currentStoreTranscript.trim()) {
-              parseSpokenText(currentStoreTranscript);
+            const storeState = useAppStore.getState();
+            const spokenText = (storeState.transcript || storeState.interimTranscript).trim();
+            if (spokenText) {
+              setTranscript(spokenText, false);
+              parseSpokenText(spokenText);
             } else {
               setVoiceState('idle');
             }
           },
-          onError: (error) => {
-            console.warn('[WebSpeech] Recognizer error:', error);
-            // Non-fatal: user can select presets or retry
+          onError: (error, code) => {
+            console.warn('[WebSpeech] Recognizer error:', error, code);
+            if (code === 'not-allowed' || code === 'MICROPHONE_PERMISSION_DENIED') {
+              setErrorMessage('Microphone access denied. Please allow microphone permissions or use 1-Click presets.');
+              toast.error('Microphone access denied. Please allow mic in browser.');
+            } else if (code === 'UNSUPPORTED_BROWSER') {
+              setErrorMessage('Web Speech API is not supported in this browser. Please use Chrome/Edge or 1-Click presets.');
+              toast.error('Speech recognition not supported in this browser. Use Chrome/Edge or 1-Click presets.');
+            } else if (code === 'no-speech') {
+              setErrorMessage('No speech detected. Please speak louder or tap a preset.');
+            } else if (code === 'network') {
+              setErrorMessage('Speech network error (often blocked in Brave or offline). Please use 1-Click Presets.');
+              toast.error('Speech recognition network error. Try 1-Click Presets below.');
+            }
           },
         },
       });
@@ -369,7 +385,7 @@ export function VoiceEntryModal({ merchantId = 'm_kolkata_kirana_001' }: VoiceEn
       setErrorMessage('Could not access microphone. Try selecting a preset below.');
       setVoiceState('idle');
     }
-  }, [voiceState, cleanupHardware, transcript, parseSpokenText, setVoiceState, language, setTranscript]);
+  }, [voiceState, cleanupHardware, transcript, interimTranscript, parseSpokenText, setVoiceState, language, setTranscript]);
 
   // Clean up on component unmount
   useEffect(() => {
@@ -412,13 +428,13 @@ export function VoiceEntryModal({ merchantId = 'm_kolkata_kirana_001' }: VoiceEn
             barCount={28}
           />
           <div className={styles.transcriptOverlay}>
-            {voiceState === 'listening' && '🎙️ Listening... Speak naturally'}
+            {voiceState === 'listening' && (interimTranscript || transcript ? `“${interimTranscript || transcript}”` : '🎙️ Listening... Speak naturally')}
             {voiceState === 'transcribing' && '⚡ Processing speech...'}
             {voiceState === 'countdown' && (transcript ? `“${transcript}”` : 'Transaction Ready')}
             {voiceState === 'committing' && '💾 Atomically syncing ledger & stock...'}
             {voiceState === 'confirmed' && '✓ Retail Soundbox Confirmed'}
-            {voiceState === 'idle' && 'Tap Mic or Select Preset to Begin'}
-            {voiceState === 'error' && 'Recognition Issue'}
+            {voiceState === 'idle' && (errorMessage || 'Tap Mic or Select Preset to Begin')}
+            {voiceState === 'error' && (errorMessage || 'Recognition Issue')}
           </div>
         </div>
 

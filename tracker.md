@@ -1726,6 +1726,8 @@ Install the `/brand` skill if not present and utilize it to author a complete, a
 - Updated [context.md](file:///c:/CCodes_WebDevelopment/hckthon/Next%20Founders/context.md) with `BRAND.md` reference.
 - Updated [features_implemented.md](file:///c:/CCodes_WebDevelopment/hckthon/Next%20Founders/features_implemented.md) with Feature 17.
 - Authored [Docs/devpost_submission.md](file:///c:/CCodes_WebDevelopment/hckthon/Next%20Founders/Docs/devpost_submission.md) containing the complete humanized Devpost submission copy.
+- Authored [Docs/two_minute_demo_script.md](file:///c:/CCodes_WebDevelopment/hckthon/Next%20Founders/Docs/two_minute_demo_script.md) providing a strict 120-second conversational presentation script with screen-by-screen actions.
+- Initialized Git repository, added `.gitignore`, committed full codebase, configured remote origin `https://github.com/ritam413/KhataVoice.git`, and pushed branch `main`.
 
 ### Files Changed
 - `C:/Users/LENOVO/.gemini/config/skills/brand/SKILL.md` (Created)
@@ -1746,6 +1748,44 @@ The `/brand` skill is permanently installed and active. The canonical brand book
 ### Next Agent Instructions
 1. Inspect [BRAND.md](file:///c:/CCodes_WebDevelopment/hckthon/Next%20Founders/BRAND.md) whenever drafting marketing copy, pitch presentations, landing page hero text, or UI components.
 2. Ensure any new visual assets (social OG cards, favicons, logos) adhere strictly to the Prosperity Sigil geometry and Bharat Modern color palette.
+
+---
+
+## 2026-10-16 — Voice Recording Diagnostics, Interim Transcript Catch, & API Key Architecture
+
+### Objective
+Diagnose why recording appeared inactive in the browser, clarify API key requirements, fix the Web Speech interim transcript drop bug in `VoiceEntryModal.tsx`, and author a comprehensive `.env.example`.
+
+### Changes Made
+- **API Key Analysis & Clarification:**
+  - Verified that KhataVoice is architected with a **Zero-Key Guarantee**: it does NOT require any API keys to work because it includes built-in offline fallbacks for speech, NLP parsing, and database storage.
+  - Optional API keys documented in `.env.example`:
+    - `GEMINI_API_KEY`: Enables cloud LLM structured entity extraction (Gemini 1.5 Flash). If omitted, the app falls back to the built-in deterministic Regex & Vernacular Phonetic Dictionary parser (`parseTransactionRegex`, <15ms).
+    - `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY`: Connects PostgreSQL and multi-device Realtime sync. If omitted, falls back to in-memory/localStorage mock database.
+    - `BHASHINI_API_KEY` / `BHASHINI_USER_ID`: Server-side MeitY Indian Government ASR pipeline.
+- **Fixed Voice Recording Drop Bug (`src/components/views/VoiceEntryModal.tsx`):**
+  - Web Speech API often keeps speech in `interimResults` until an explicit pause. Previously, if the user clicked stop or speech ended before `isFinal` fired, `transcript` was empty string, causing the modal to silently discard the utterance and reset to `idle`.
+  - Updated `toggleListening` and `onEnd` to check `(storeState.transcript || storeState.interimTranscript)`.
+  - Added user-facing error toasts for `not-allowed`, `UNSUPPORTED_BROWSER` (Firefox), `network` (Brave privacy shields), and `no-speech`.
+  - Added live spoken utterance preview in `transcriptOverlay` so the shopkeeper sees immediate feedback while speaking.
+- **Environment Template (`.env.example`):**
+  - Created `.env.example` documenting all optional keys and zero-key fallback behavior.
+
+### Files Changed
+- `src/components/views/VoiceEntryModal.tsx` (Modified)
+- `.env.example` (Created)
+- `tracker.md` (Updated)
+
+### Verification
+- `npm test` — **Passed (4/4 suites green, 10/10 NLP benchmarks, 7/7 Trust Score checks, 3/3 E2E integration tests, 12/12 KV-20 checks)**.
+
+### Current State
+Voice recording and 1-Click presets capture and process transactions cleanly with zero API keys required, with enhanced browser error reporting and interim speech capture.
+
+### Next Agent Instructions
+1. Advise users on browser compatibility: Native Web Speech requires Google Chrome or Microsoft Edge (or 1-Click presets in Brave/Firefox).
+2. Users can supply `GEMINI_API_KEY` in `.env.local` if they want frontier cloud LLM parsing.
+
 
 
 

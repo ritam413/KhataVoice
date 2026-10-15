@@ -9,7 +9,7 @@ metadata:
 
 # Brand Skill: Identity, Voice, Strategy & Design System
 
-Use this skill when defining, creating, reviewing, or codifying a brand for a website, digital product, or service. It generates an authoritative, cohesive, anti-slop **`BRAND.md`** brand book, establishes brand voice and messaging frameworks, defines visual identity assets and color tokens, and ensures relentless consistency across the entire user experience.
+Use thskill when defining, creating, reviewing, or codifying a brand for a website, digital product, or service. It generates an authoritative, cohesive, anti-slop **`BRAND.md`** brand book, establishes brand voice and messaging frameworks, defines visual identity assets and color tokens, and ensures relentless consistency across the entire user experience.
 
 ---
 
